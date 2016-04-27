@@ -8,6 +8,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'rubocop'
 gem 'sdoc', group: :doc
 
 group :test, :development do
