@@ -89,4 +89,16 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  require 'bundler/setup'
+  ::Bundler.require(:default, :test)
+
+  require 'shoulda/matchers'
+
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+      end
+  end
+
 end

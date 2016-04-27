@@ -1,2 +1,2 @@
 # stack_app
-Stack overflow clone app by AM
+stack overflow clone app by AM
