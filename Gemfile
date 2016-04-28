@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'rubocop'
+gem 'slim-rails'
 gem 'sdoc', group: :doc
 
 group :test, :development do
