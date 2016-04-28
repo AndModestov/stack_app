@@ -36,7 +36,7 @@ describe QuestionsController do
 
       it 'redirects to show view' do
         post :create, question: attributes_for(:question)
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect(response).to redirect_to assigns(:question)
       end
     end
 
