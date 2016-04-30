@@ -19,6 +19,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 ruby '2.3.0'
