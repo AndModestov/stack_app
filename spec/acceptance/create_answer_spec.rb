@@ -20,9 +20,6 @@ feature 'User can answer the question' do
     click_on 'Answer'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
-    expect(page).to have_field 'Email'
-    expect(page).to have_field 'Password'
-    expect(page).to have_button 'Log in'
     expect(current_path).to eq new_user_session_path
   end
 end
