@@ -29,6 +29,7 @@ describe QuestionsController do
   end
 
   describe 'GET #new' do
+    sign_in_user
     before { get :new }
 
     it 'assigns a new question to @question' do
@@ -41,7 +42,7 @@ describe QuestionsController do
   end
 
   describe 'POST #create' do
-
+    sign_in_user
     context 'with valid information' do
       it 'saves the question in database' do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)

@@ -4,6 +4,7 @@ describe AnswersController do
   let(:question) { create(:question) }
 
   describe 'GET #new' do
+    sign_in_user
     before { get :new, question_id: question }
 
     it 'assigns a new answer to @question' do
@@ -16,6 +17,7 @@ describe AnswersController do
   end
 
   describe 'POST #create' do
+    sign_in_user
 
     context 'with valid information' do
       it 'saves the answer in database' do

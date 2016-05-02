@@ -10,6 +10,9 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'rubocop'
 gem 'slim-rails'
+gem 'devise'
+gem 'launchy'
+
 gem 'sdoc', group: :doc
 
 group :test, :development do
