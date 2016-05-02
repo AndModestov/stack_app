@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe QuestionsController do
-  let(:question) { create(:question) }
+  sign_in_user
+  let(:question) { create(:question, user: @user) }
 
   describe 'GET #index' do
     let(:questions){ create_list(:question, 2) }
@@ -42,10 +43,10 @@ describe QuestionsController do
   end
 
   describe 'POST #create' do
-    sign_in_user
+
     context 'with valid information' do
       it 'saves the question in database' do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+        expect { post :create, question: attributes_for(:question) }.to change(@user.questions, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -56,7 +57,7 @@ describe QuestionsController do
 
     context 'with invalid information' do
       it 'does not save the question' do
-        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(Question, :count)
+        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(@user.questions, :count)
       end
 
       it 're-renders new view' do
@@ -67,16 +68,34 @@ describe QuestionsController do
   end
 
   describe 'DELETE #destroy' do
-    sign_in_user
 
-    it 'deletes question' do
-      question
-      expect{ delete :destroy, id: question }.to change(Question, :count).by(-1)
+    context 'delete current users question' do
+
+      it 'deletes question' do
+        question
+        expect{ delete :destroy, id: question }.to change(@user.questions, :count).by(-1)
+      end
+
+      it 'redirect to index view' do
+        delete :destroy, id: question
+        expect(response).to redirect_to questions_path
+      end
     end
 
-    it 'redirect to index view' do
-      delete :destroy, id: question
-      expect(response).to redirect_to questions_path
+    context 'delete other users question' do
+      let(:wrong_user){ create(:user) }
+      let(:wrong_question){ create(:question, user: wrong_user) }
+
+      it 'deletes question' do
+        wrong_question
+        expect{ delete :destroy, id: wrong_question }.to_not change(wrong_user.questions, :count)
+      end
+
+      it 'redirect to index view' do
+        delete :destroy, id: wrong_question
+        expect(response).to redirect_to new_user_session_path
+      end
+
     end
   end
 end
