@@ -10,6 +10,7 @@ feature 'User can create question' do
     fill_in 'Title', with: 'Test question'
     fill_in 'Text', with: 'Text of the test question'
     click_on 'Create'
+
     expect(page).to have_content 'Your question successfully created.'
     expect(current_path).to eq question_path(Question.last)
   end
