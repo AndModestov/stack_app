@@ -46,7 +46,9 @@ describe QuestionsController do
 
     context 'with valid information' do
       it 'saves the question in database' do
-        expect { post :create, question: attributes_for(:question) }.to change(@user.questions, :count).by(1)
+        expect {
+          post :create, question: attributes_for(:question)
+        }.to change(@user.questions, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -57,7 +59,9 @@ describe QuestionsController do
 
     context 'with invalid information' do
       it 'does not save the question' do
-        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(@user.questions, :count)
+        expect {
+          post :create, question: attributes_for(:invalid_question)
+        }.to_not change(@user.questions, :count)
       end
 
       it 're-renders new view' do
@@ -73,7 +77,9 @@ describe QuestionsController do
 
       it 'deletes question' do
         question
-        expect{ delete :destroy, id: question }.to change(@user.questions, :count).by(-1)
+        expect{
+          delete :destroy, id: question
+        }.to change(@user.questions, :count).by(-1)
       end
 
       it 'redirect to index view' do
@@ -86,12 +92,14 @@ describe QuestionsController do
       let(:wrong_user){ create(:user) }
       let(:wrong_question){ create(:question, user: wrong_user) }
 
-      it 'deletes question' do
+      it 'dont deletes question' do
         wrong_question
-        expect{ delete :destroy, id: wrong_question }.to_not change(wrong_user.questions, :count)
+        expect{
+          delete :destroy, id: wrong_question
+        }.to_not change(wrong_user.questions, :count)
       end
 
-      it 'redirect to index view' do
+      it 'redirect to login view' do
         delete :destroy, id: wrong_question
         expect(response).to redirect_to new_user_session_path
       end
