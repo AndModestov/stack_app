@@ -12,6 +12,8 @@ feature 'User can create question' do
     click_on 'Create'
 
     expect(page).to have_content 'Your question successfully created.'
+    expect(page).to have_content 'Test question'
+    expect(page).to have_content 'Text of the test question'
     expect(current_path).to eq question_path(Question.last)
   end
 

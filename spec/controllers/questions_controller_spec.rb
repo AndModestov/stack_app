@@ -61,7 +61,7 @@ describe QuestionsController do
       it 'does not save the question' do
         expect {
           post :create, question: attributes_for(:invalid_question)
-        }.to_not change(@user.questions, :count)
+        }.to_not change(Question, :count)
       end
 
       it 're-renders new view' do
@@ -96,7 +96,7 @@ describe QuestionsController do
         wrong_question
         expect{
           delete :destroy, id: wrong_question
-        }.to_not change(wrong_user.questions, :count)
+        }.to_not change(Question, :count)
       end
 
       it 'redirect to login view' do

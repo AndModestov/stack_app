@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
   before_action :find_question, only: [:show, :destroy]
-  before_action :correct_user?, only: [:destroy]
 
   def index
     @questions = Question.all
@@ -26,9 +25,13 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path
-    flash[:notice] = 'Question successfully deleted.'
+    if current_user.author_of?(@question)
+      @question.destroy
+      redirect_to questions_path
+      flash[:notice] = 'Question successfully deleted.'
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   private
@@ -39,9 +42,5 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body)
-  end
-
-  def correct_user?
-    redirect_to new_user_session_path unless (current_user == @question.user)
   end
 end

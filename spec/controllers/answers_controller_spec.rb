@@ -22,12 +22,12 @@ describe AnswersController do
     context 'with valid information' do
       it 'saves the answer in database' do
         expect {
-          post :create, question_id: question, user_id: @user, answer: attributes_for(:answer)
+          post :create, question_id: question, answer: attributes_for(:answer)
         }.to change(question.answers, :count).by(1) && change(@user.answers, :count).by(1)
       end
 
       it 'redirects to question show view' do
-        post :create, question_id: question, user_id: @user, answer: attributes_for(:answer)
+        post :create, question_id: question, answer: attributes_for(:answer)
         expect(response).to redirect_to assigns(:question)
       end
     end
@@ -35,12 +35,12 @@ describe AnswersController do
     context 'with invalid information' do
       it 'does not save the answer' do
         expect {
-          post :create, question_id: question, user_id: @user, answer: attributes_for(:invalid_answer)
-        }.to_not change(question.answers, :count) && change(@user.answers, :count)
+          post :create, question_id: question, answer: attributes_for(:invalid_answer)
+        }.to_not change(Answer, :count)
       end
 
       it 're-renders new answer view' do
-        post :create, question_id: question, user_id: @user, answer: attributes_for(:invalid_answer)
+        post :create, question_id: question, answer: attributes_for(:invalid_answer)
         expect(response).to render_template :new
       end
     end
@@ -66,7 +66,7 @@ describe AnswersController do
 
       it 'dont deletes question' do
         wrong_answer
-        expect{ delete :destroy, question_id: question, id: wrong_answer }.to_not change(wrong_user.answers, :count)
+        expect{ delete :destroy, question_id: question, id: wrong_answer }.to_not change(Answer, :count)
       end
 
       it 'redirect to index view' do

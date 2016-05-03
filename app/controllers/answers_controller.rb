@@ -2,7 +2,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
   before_action :find_question, only: [:new, :create, :destroy]
   before_action :find_answer, only: [:destroy]
-  before_action :correct_user?, only: [:destroy]
 
   def new
     @answer = @question.answers.new
@@ -19,9 +18,13 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy
-    redirect_to @question
-    flash[:notice] = 'Answer successfully deleted.'
+    if current_user.author_of?(@answer)
+      @answer.destroy
+      redirect_to @question
+      flash[:notice] = 'Answer successfully deleted.'
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   private
@@ -36,9 +39,5 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
-  end
-
-  def correct_user?
-    redirect_to new_user_session_path unless (current_user == @answer.user)
   end
 end
