@@ -10,26 +10,26 @@ describe AnswersController do
     context 'with valid information' do
       it 'saves the answer in database' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer)
+          post :create, question_id: question, answer: attributes_for(:answer), format: :js
         }.to change(question.answers, :count).by(1) && change(@user.answers, :count).by(1)
       end
 
-      it 'redirects to question show view' do
-        post :create, question_id: question, answer: attributes_for(:answer)
-        expect(response).to redirect_to assigns(:question)
+      it 'render create template' do
+        post :create, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(response).to render_template :create
       end
     end
 
     context 'with invalid information' do
       it 'does not save the answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:invalid_answer)
+          post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
         }.to_not change(Answer, :count)
       end
 
       it 're-renders question view' do
-        post :create, question_id: question, answer: attributes_for(:invalid_answer)
-        expect(response).to redirect_to assigns(:question)
+        post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
+        expect(response).to render_template :create
       end
     end
   end
