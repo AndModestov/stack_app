@@ -16,7 +16,7 @@ feature 'Sign in user' do
     fill_in 'Password', with: 'wrongpassword'
     click_on 'Log in'
 
-    expect(page).to have_content 'Invalid email or password'
+    expect(page).to have_content 'Invalid Email or password'
     expect(current_path).to eq new_user_session_path
   end
 end

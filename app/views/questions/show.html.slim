@@ -1,14 +1,18 @@
 h1 = @question.title
 h2 = @question.body
 
-- @question.answers.each do |answer|
-  p = answer.body
-  - if current_user && current_user.author_of?(answer)
-    = link_to 'Delete answer', question_answer_path(@question, answer), method: 'delete', data: {confirm: "Sure?"}
+.answers
+  - @question.answers.each do |answer|
+    p = answer.body
+    - if current_user && current_user.author_of?(answer)
+      = link_to 'Delete answer', question_answer_path(@question, answer), method: 'delete', data: {confirm: "Sure?"}
 
 br
 - if current_user && current_user.author_of?(@question)
   = link_to 'Delete question', question_path(@question), method: 'delete', data: {confirm: "Sure?"}
 
 br
-= link_to 'Answer', new_question_answer_path(@question)
+= form_for [@question, @answer], remote: true do |f|
+  = f.label :body, 'Your answer:'
+  = f.text_area :body
+  = f.submit 'Answer'

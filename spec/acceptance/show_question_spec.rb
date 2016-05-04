@@ -10,7 +10,8 @@ feature 'Show the question with answers' do
 
     expect(page).to have_content question.title
     expect(page).to have_content question.body
-    expect(page).to have_link('Answer', href: new_question_answer_path(question_id: question))
+    expect(page).to have_field 'Your answer:'
+    expect(page).to have_button('Answer')
 
     answers.each do |answer|
       expect(page).to have_content answer.body
