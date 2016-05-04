@@ -4,7 +4,7 @@ feature 'User can answer the question' do
   given(:user){ create(:user) }
   given(:question){ create(:question) }
 
-  scenario 'Authenticated user try to answer the question' do
+  scenario 'Authenticated user try to answer the question', js: true do
     log_in(user)
     visit question_path(question)
     fill_in 'Your answer:', with: 'New test answer for question'
