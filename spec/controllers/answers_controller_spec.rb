@@ -5,18 +5,6 @@ describe AnswersController do
   let(:question){ create(:question, user: @user) }
   let(:answer){ create(:answer, user: @user, question: question) }
 
-  describe 'GET #new' do
-    before { get :new, question_id: question }
-
-    it 'assigns a new answer to @question' do
-      expect(assigns(:answer)).to be_a_new(Answer)
-    end
-
-    it 'should render the new view' do
-      expect(response).to render_template :new
-    end
-  end
-
   describe 'POST #create' do
 
     context 'with valid information' do
@@ -39,9 +27,9 @@ describe AnswersController do
         }.to_not change(Answer, :count)
       end
 
-      it 're-renders new answer view' do
+      it 're-renders question view' do
         post :create, question_id: question, answer: attributes_for(:invalid_answer)
-        expect(response).to render_template :new
+        expect(response).to redirect_to assigns(:question)
       end
     end
   end
