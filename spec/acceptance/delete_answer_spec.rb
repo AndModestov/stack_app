@@ -4,11 +4,10 @@ feature 'Delete answer' do
   given(:user1){ create(:user) }
   given(:user2){ create(:user) }
   given(:question1){ create(:question, user: user1) }
-  given(:answer2){ create(:answer, user: user2, question: question1) }
+  given!(:answer2){ create(:answer, user: user2, question: question1) }
 
   scenario 'User tryes to delete his own answer' do
     log_in(user2)
-    answer2
     visit question_path(question1)
     click_on 'Delete answer'
 
@@ -19,7 +18,6 @@ feature 'Delete answer' do
 
   scenario 'User tryes to delete other users answer' do
     log_in(user1)
-    answer2
     visit question_path(question1)
 
     expect(page).to_not have_link 'Delete answer'

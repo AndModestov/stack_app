@@ -2,10 +2,9 @@ require 'rails_helper'
 
 feature 'Show the question with answers' do
   given(:question){ create(:question) }
-  given(:answers){ create_list(:answer, 3, question: question) }
+  given!(:answers){ create_list(:answer, 3, question: question) }
 
   scenario 'Visitor tryes to watch question' do
-    answers
     visit questions_path
     click_on question.title
 

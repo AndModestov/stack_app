@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 feature 'User can watch the questions list' do
-  given(:questions){ create_list(:question, 3) }
+  given!(:questions){ create_list(:question, 3) }
 
   scenario 'Visitor tryes to watch the questions list' do
-    questions
     visit questions_path
 
     questions.each do |question|
