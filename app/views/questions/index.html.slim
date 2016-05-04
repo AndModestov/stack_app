@@ -1,0 +1,7 @@
+-@questions.each do |question|
+  =link_to question_path(question)
+      h1 = question.title
+
+= link_to 'Ask question', new_question_path
+br
+= link_to 'Log out', destroy_user_session_path, method: 'delete'

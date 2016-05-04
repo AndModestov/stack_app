@@ -10,6 +10,9 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'rubocop'
 gem 'slim-rails'
+gem 'devise'
+gem 'launchy'
+
 gem 'sdoc', group: :doc
 
 group :test, :development do
@@ -19,6 +22,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 ruby '2.3.0'
