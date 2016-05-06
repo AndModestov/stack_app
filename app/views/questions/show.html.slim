@@ -2,13 +2,13 @@ h1 = @question.title
 h2 = @question.body
 
 .answers
-  = render @question.answers
+  = render @question.answers.order('id')
 br
 - if current_user && current_user.author_of?(@question)
   = link_to 'Delete question', question_path(@question), method: 'delete', data: {confirm: "Sure?"}
 
-br
-= form_for [@question, @answer], remote: true do |f|
-  = f.label :body, 'Your answer:'
-  = f.text_area :body
-  = f.submit 'Answer'
+- if current_user
+  = form_for [@question, @answer], remote: true do |f|
+    = f.label :body, 'Your answer:'
+    = f.text_area :body
+    = f.submit 'Answer'
