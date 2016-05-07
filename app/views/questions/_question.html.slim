@@ -1,0 +1,18 @@
+.question
+  h1 = question.title
+  h4 = question.body
+
+  - if current_user && current_user.author_of?(question)
+    p = link_to 'Edit question', '', class: 'edit-question-link'
+
+    = form_for question, remote: true, html: {id: 'edit-question'} do |f|
+      p
+        = f.label :title, 'Question title:'
+        = f.text_area :title
+        = f.label :body, 'Question body:'
+        = f.text_area :body
+        .question-errors
+      p = f.submit 'Save'
+
+    p = link_to 'Delete question', question_path(question), method: 'delete', data: {confirm: "Sure?"}
+br

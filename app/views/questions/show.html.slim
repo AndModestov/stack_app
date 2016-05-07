@@ -1,25 +1,9 @@
-.question
-  h1 = @question.title
-  h4 = @question.body
-  p = link_to 'Edit question', '', class: 'edit-question-link'
-
-  = form_for @question, remote: true, html: {id: 'edit-question'} do |f|
-    p
-      = f.label :title, 'Question title:'
-      = f.text_area :title
-      = f.label :body, 'Question body:'
-      = f.text_area :body
-      .answer-errors
-    p = f.submit 'Save'
-
+= render @question
 
 h3 = 'Answers:'
 
 .answers
   = render @question.answers.order('id')
-br
-- if current_user && current_user.author_of?(@question)
-  = link_to 'Delete question', question_path(@question), method: 'delete', data: {confirm: "Sure?"}
 
 - if current_user
   = form_for [@question, @answer], remote: true do |f|
