@@ -33,6 +33,7 @@ feature 'Edit answer' do
         fill_in 'Answer', with: ''
         click_on 'Save'
 
+        expect(page).to have_content answer.body
         expect(page).to have_content "Body can't be blank"
       end
     end

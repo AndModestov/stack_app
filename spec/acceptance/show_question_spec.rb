@@ -11,7 +11,8 @@ feature 'Show the question with answers' do
     expect(page).to have_content question.title
     expect(page).to have_content question.body
     expect(page).to_not have_field 'Your answer:'
-    expect(page).to_not have_button('Answer')
+    expect(page).to_not have_button 'Answer'
+    expect(page).to_not have_link 'Edit question'
 
     answers.each do |answer|
       expect(page).to have_content answer.body
