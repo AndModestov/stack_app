@@ -13,15 +13,13 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @answer.update(answer_params)
     else
-      redirect_to @question
+      redirect_to new_user_session_path
     end
   end
 
   def destroy
     if current_user.author_of?(@answer)
       @answer.destroy
-      redirect_to @question
-      flash[:notice] = 'Answer successfully deleted.'
     else
       redirect_to new_user_session_path
     end

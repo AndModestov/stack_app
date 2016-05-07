@@ -67,6 +67,11 @@ describe AnswersController do
         wrong_answer.reload
         expect(wrong_answer.body).to_not eq 'new body'
       end
+
+      it 'redirect to sign in path' do
+        patch :update, id: wrong_answer, question_id: question, answer: { body: 'new body' }, format: :js
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 
@@ -74,22 +79,26 @@ describe AnswersController do
 
     context 'delete current users answer' do
       it 'deletes answer' do
-        expect{ delete :destroy, question_id: question, id: answer }.to change(question.answers, :count).by(-1)
+        expect{
+          delete :destroy, question_id: question, id: answer, format: :js
+        }.to change(question.answers, :count).by(-1)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, question_id: question, id: answer
-        expect(response).to redirect_to question_path(question)
+      it 'render question view' do
+        delete :destroy, question_id: question, id: answer, format: :js
+        expect(response).to render_template :destroy
       end
     end
 
     context 'delete other users answer' do
-      it 'dont deletes question' do
-        expect{ delete :destroy, question_id: question, id: wrong_answer }.to_not change(Answer, :count)
+      it 'dont deletes answer' do
+        expect{
+          delete :destroy, question_id: question, id: wrong_answer, format: :js
+        }.to_not change(Answer, :count)
       end
 
-      it 'redirect to log in view' do
-        delete :destroy, question_id: question, id: wrong_answer
+      it 'redirect to sign in path' do
+        delete :destroy, question_id: question, id: wrong_answer, format: :js
         expect(response).to redirect_to new_user_session_path
       end
     end

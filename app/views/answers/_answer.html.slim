@@ -11,5 +11,6 @@
           = f.text_area :body
         p = f.submit 'Save'
 
-    p = link_to 'Delete answer', question_answer_path(@question, answer), method: 'delete', data: {confirm: "Sure?"}
+    p = link_to 'Delete answer', question_answer_path(@question, answer),
+            method: 'delete', data: {confirm: "Sure?"}, remote: true
 br

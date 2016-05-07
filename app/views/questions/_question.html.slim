@@ -8,7 +8,8 @@
     = form_for question, remote: true, html: {id: 'edit-question'} do |f|
       p
         = f.label :title, 'Question title:'
-        = f.text_area :title
+        = f.text_field :title
+      p
         = f.label :body, 'Question body:'
         = f.text_area :body
         .question-errors
