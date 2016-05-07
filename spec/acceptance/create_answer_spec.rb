@@ -16,6 +16,15 @@ feature 'User can answer the question' do
     end
   end
 
+  scenario 'Authenticated user try to create invalid answer', js: true do
+    log_in(user)
+    visit question_path(question)
+
+    click_on 'Answer'
+
+    expect(page).to have_content "Body can't be blank"
+  end
+
   scenario 'Non-Authenticated user try to answer the question' do
     visit question_path(question)
 

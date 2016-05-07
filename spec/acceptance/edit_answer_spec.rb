@@ -13,7 +13,7 @@ feature 'Edit answer' do
       visit question_path(question)
     end
 
-    scenario 'try to edit his answer', js: true do
+    scenario 'try to edit his answer with valid data', js: true do
       within '.answers' do
         expect(page).to have_link 'Edit answer'
 
@@ -24,6 +24,16 @@ feature 'Edit answer' do
         expect(page).to_not have_content answer.body
         expect(page).to have_content 'edited answer'
         expect(page).to_not have_selector 'textarea'
+      end
+    end
+
+    scenario 'try to edit his answer with invalid data', js: true do
+      within '.answers' do
+        click_on 'Edit answer'
+        fill_in 'Answer', with: ''
+        click_on 'Save'
+
+        expect(page).to have_content "Body can't be blank"
       end
     end
 
