@@ -103,4 +103,41 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'PATCH #make_best' do
+
+    context 'question author chose best answer' do
+      it 'assigns answer to @answer' do
+        patch :make_best, question_id: question, id: answer
+        expect(assigns(:answer)).to eq answer
+      end
+
+      it 'assigns question to @question' do
+        patch :make_best, question_id: question, id: answer
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'redirects to question' do
+        patch :make_best, question_id: question, id: answer
+        expect(response).to redirect_to question
+      end
+
+      it 'makes answer the best' do
+        patch :make_best, question_id: question, id: answer
+        answer.reload
+        expect(answer.best).to be true
+      end
+    end
+
+    context 'other user try to chose best answer' do
+      let(:wrong_question){ create(:question, user: wrong_user) }
+      let!(:wrong_question_answer){ create(:answer, question: wrong_question, user: wrong_user) }
+
+      it 'cant chose best answer' do
+        patch :make_best, question_id: wrong_question, id: wrong_question_answer
+        wrong_question_answer.reload
+        expect(wrong_question_answer.best).to be false
+      end
+    end
+  end
 end

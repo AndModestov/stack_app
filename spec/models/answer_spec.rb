@@ -8,4 +8,25 @@ RSpec.describe Answer, type: :model do
 
   it { should validate_presence_of :user_id }
   it { should belong_to(:user) }
+
+  describe 'best! method' do
+    let(:user){ create(:user) }
+    let(:question){ create(:question, user: user) }
+    let!(:answer1){ create(:answer, question: question, user: user) }
+    let!(:answer2){ create(:answer, question: question, user: user) }
+
+    it 'should make answer the best' do
+      expect{ answer1.best_answer! }.to change { answer1.best }.from(false).to(true)
+    end
+
+    it 'should change the best answer' do
+      answer1.best_answer!
+      answer2.best_answer!
+      answer1.reload
+      answer2.reload
+
+      expect(answer1.best).to be false
+      expect(answer2.best).to be true
+    end
+  end
 end
