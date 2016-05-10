@@ -1,0 +1,19 @@
+header.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    = link_to "Stack App", root_path, id: "logo"
+    nav
+      ul.nav.nav-tabs.pull-right
+        - if current_user
+          li = link_to "Questions", questions_path
+          li = link_to "New Question", new_question_path
+
+          li#fat-menu.dropdown
+            a.dropdown-toggle data-toggle="dropdown" href=""
+              | Account settings
+              b.caret
+            ul.dropdown-menu
+              li = link_to "Settings", edit_user_registration_path(current_user)
+              li.divider
+              li = link_to "Sign out", destroy_user_session_path, method: "delete"
+        - else
+          li = link_to "Sign In", new_user_session_path

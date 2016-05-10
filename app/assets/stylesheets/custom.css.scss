@@ -1,0 +1,39 @@
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 2em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 10px;
+  font-weight: bold;
+  line-height: 1;
+
+  &:hover {
+    color: #ddddff;
+    text-decoration: none;
+  }
+}
+
+.nav {
+  margin-top: 5px;
+}
+
+.answer {
+  width: 50%;
+  background-color: rgba(10, 10, 10, 0.5);
+  padding: 15px;
+  border-radius: 30px;
+  A {
+    color: #ddddff;
+  }
+  A:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  A:active {
+    color: #eee;
+  }
+}

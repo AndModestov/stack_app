@@ -1,0 +1,5 @@
+<% if @question.errors.empty? %>
+  $('.question').html('<%= j render @question %>');
+<% else %>
+  <%= render 'question_errors' %>
+<% end %>

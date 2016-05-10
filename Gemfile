@@ -11,6 +11,7 @@ gem 'jbuilder'
 gem 'rubocop'
 gem 'slim-rails'
 gem 'devise'
+gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'sdoc', group: :doc
 
@@ -19,7 +20,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
 end
 

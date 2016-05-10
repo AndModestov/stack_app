@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :find_question, only: [:new, :create, :destroy]
-  before_action :find_answer, only: [:destroy]
+  before_action :authenticate_user!
+  before_action :find_question, only: [:create]
+  before_action :find_answer, only: [:destroy, :update, :make_best]
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -9,11 +9,26 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
+  def update
+    if current_user.author_of?(@answer)
+      @answer.update(answer_params)
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
   def destroy
     if current_user.author_of?(@answer)
       @answer.destroy
-      redirect_to @question
-      flash[:notice] = 'Answer successfully deleted.'
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
+  def make_best
+    if current_user.author_of?(@answer.question)
+      @answer.best_answer!
+      redirect_to @answer.question
     else
       redirect_to new_user_session_path
     end

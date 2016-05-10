@@ -1,0 +1,3 @@
+<% @answer.errors.full_messages.each do |message| %>
+  $('.answer-errors').html('<%= j message %>')
+<% end %>

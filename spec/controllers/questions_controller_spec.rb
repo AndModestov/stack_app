@@ -3,6 +3,8 @@ require 'rails_helper'
 describe QuestionsController do
   sign_in_user
   let(:question) { create(:question, user: @user) }
+  let(:wrong_user){ create(:user) }
+  let(:wrong_question){ create(:question, user: wrong_user) }
 
   describe 'GET #index' do
     let(:questions){ create_list(:question, 2) }
@@ -47,7 +49,6 @@ describe QuestionsController do
   end
 
   describe 'POST #create' do
-
     context 'with valid information' do
       it 'saves the question in database' do
         expect {
@@ -75,10 +76,40 @@ describe QuestionsController do
     end
   end
 
+  describe 'PATCH #update' do
+
+    context 'update current users question' do
+      it 'assigns question to @question' do
+        patch :update, id: question, question: attributes_for(:question), format: :js
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'updates question attributes' do
+        patch :update, id: question, question: { title: 'updated title', body: 'updated body' }, format: :js
+        question.reload
+        expect(question.title).to eq 'updated title'
+        expect(question.body).to eq 'updated body'
+      end
+
+      it 'renders template update' do
+        patch :update, id: question, question: attributes_for(:question), format: :js
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'update other users question' do
+      it 'dont updates question attributes' do
+        patch :update, id: wrong_question, question: { title: 'updated title', body: 'updated body' }, format: :js
+        wrong_question.reload
+        expect(wrong_question.title).to_not eq 'updated title'
+        expect(wrong_question.body).to_not eq 'updated body'
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
 
     context 'delete current users question' do
-
       it 'deletes question' do
         question
         expect{
@@ -93,9 +124,6 @@ describe QuestionsController do
     end
 
     context 'delete other users question' do
-      let(:wrong_user){ create(:user) }
-      let(:wrong_question){ create(:question, user: wrong_user) }
-
       it 'dont deletes question' do
         wrong_question
         expect{
@@ -107,7 +135,6 @@ describe QuestionsController do
         delete :destroy, id: wrong_question
         expect(response).to redirect_to new_user_session_path
       end
-
     end
   end
 end

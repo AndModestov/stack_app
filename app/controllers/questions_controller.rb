@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :find_question, only: [:show, :destroy]
+  before_action :find_question, only: [:show, :update, :destroy]
 
   def index
     @questions = Question.all
@@ -22,6 +22,14 @@ class QuestionsController < ApplicationController
       flash[:notice] = 'Your question successfully created.'
     else
       render :new
+    end
+  end
+
+  def update
+    if current_user.author_of?(@question)
+      @question.update(question_params)
+    else
+      redirect_to new_user_session_path
     end
   end
 

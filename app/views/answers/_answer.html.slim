@@ -1,3 +1,26 @@
-p = answer.body
-- if current_user && current_user.author_of?(answer)
-  p = link_to 'Delete answer', question_answer_path(@question, answer), method: 'delete', data: {confirm: "Sure?"}
+.answer id= "answer-#{answer.id}"
+
+  h4 = answer.body
+
+  - if current_user && current_user.author_of?(answer)
+    p = link_to 'Edit answer', '', class: 'edit-answer-link btn btn-primary',
+                                   data: { answer_id: answer.id }
+
+    p
+      = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+        p
+          = f.label :body, 'Answer'
+          .answer-errors
+          = f.text_area :body
+        p = f.submit 'Save'
+
+    p = link_to 'Delete answer', answer_path(answer), class: 'btn btn-primary',
+                                    method: 'delete', data: {confirm: "Sure?"}, remote: true
+
+  - if answer.best?
+    h4.pull-right = 'Best answer'
+  - if current_user && current_user.author_of?(@answer.question)
+    p = link_to 'make best', make_best_answer_path(answer), class: 'btn btn-primary',
+                                                            method: :post
+
+br
