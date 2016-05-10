@@ -1,5 +1,1 @@
-<% if @answer.errors.empty? %>
-  $('.answer#answer-<%= @answer.id %>').html('Answer successfully deleted.');
-<% else %>
-  <%= render 'answer_errors' %>
-<% end %>
+$('.answer#answer-<%= @answer.id %>').html('Answer successfully deleted.');

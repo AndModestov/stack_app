@@ -40,36 +40,31 @@ describe AnswersController do
 
     context 'update current users answer' do
       it 'assigns answer to @answer' do
-        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        patch :update, id: answer, answer: attributes_for(:answer), format: :js
         expect(assigns(:answer)).to eq answer
       end
 
-      it 'assigns question to @question' do
-        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
-        expect(assigns(:question)).to eq question
-      end
-
       it 'changes answer attributes' do
-        patch :update, id: answer, question_id: question, answer: { body: 'new body' }, format: :js
+        patch :update, id: answer, answer: { body: 'new body' }, format: :js
         answer.reload
         expect(answer.body).to eq 'new body'
       end
 
       it 'render update template' do
-        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        patch :update, id: answer, answer: attributes_for(:answer), format: :js
         expect(response).to render_template :update
       end
     end
 
     context 'update other users answer' do
       it 'not changes answer attributes' do
-        patch :update, id: wrong_answer, question_id: question, answer: { body: 'new body' }, format: :js
+        patch :update, id: wrong_answer, answer: { body: 'new body' }, format: :js
         wrong_answer.reload
         expect(wrong_answer.body).to_not eq 'new body'
       end
 
       it 'redirect to sign in path' do
-        patch :update, id: wrong_answer, question_id: question, answer: { body: 'new body' }, format: :js
+        patch :update, id: wrong_answer, answer: { body: 'new body' }, format: :js
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -80,12 +75,12 @@ describe AnswersController do
     context 'delete current users answer' do
       it 'deletes answer' do
         expect{
-          delete :destroy, question_id: question, id: answer, format: :js
+          delete :destroy, id: answer, format: :js
         }.to change(question.answers, :count).by(-1)
       end
 
       it 'render question view' do
-        delete :destroy, question_id: question, id: answer, format: :js
+        delete :destroy, id: answer, format: :js
         expect(response).to render_template :destroy
       end
     end
@@ -93,12 +88,12 @@ describe AnswersController do
     context 'delete other users answer' do
       it 'dont deletes answer' do
         expect{
-          delete :destroy, question_id: question, id: wrong_answer, format: :js
+          delete :destroy, id: wrong_answer, format: :js
         }.to_not change(Answer, :count)
       end
 
       it 'redirect to sign in path' do
-        delete :destroy, question_id: question, id: wrong_answer, format: :js
+        delete :destroy, id: wrong_answer, format: :js
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -108,22 +103,17 @@ describe AnswersController do
 
     context 'question author chose best answer' do
       it 'assigns answer to @answer' do
-        patch :make_best, question_id: question, id: answer
+        patch :make_best, id: answer
         expect(assigns(:answer)).to eq answer
       end
 
-      it 'assigns question to @question' do
-        patch :make_best, question_id: question, id: answer
-        expect(assigns(:question)).to eq question
-      end
-
       it 'redirects to question' do
-        patch :make_best, question_id: question, id: answer
+        patch :make_best, id: answer
         expect(response).to redirect_to question
       end
 
       it 'makes answer the best' do
-        patch :make_best, question_id: question, id: answer
+        patch :make_best, id: answer
         answer.reload
         expect(answer.best).to be true
       end
@@ -134,7 +124,7 @@ describe AnswersController do
       let!(:wrong_question_answer){ create(:answer, question: wrong_question, user: wrong_user) }
 
       it 'cant chose best answer' do
-        patch :make_best, question_id: wrong_question, id: wrong_question_answer
+        patch :make_best, id: wrong_question_answer
         wrong_question_answer.reload
         expect(wrong_question_answer.best).to be false
       end

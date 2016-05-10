@@ -3,7 +3,7 @@
 h3 = 'Answers:'
 
 .answers
-  = render @question.answers.order('best DESC', 'created_at')
+  = render @question.answers.best_first
 
 - if current_user
   = form_for [@question, @answer], remote: true do |f|

@@ -14,33 +14,31 @@ feature 'Chose best answer' do
     end
 
     scenario 'question author try to chose best answer', js: true do
-
-			within '.answers' do
-				within "#answer-#{answers.first.id}" do
-					click_on 'make best'
+      within '.answers' do
+        within "#answer-#{answers.first.id}" do
+          click_on 'make best'
 
           expect(page).to have_content 'Best answer'
         end
       end
-		end
+    end
 
-		scenario 'question author try to change best answer', js: true do
-
-			within '.answers' do
-				within "#answer-#{answers.first.id}" do
-					click_on 'make best'
+    scenario 'question author try to change best answer', js: true do
+      within '.answers' do
+        within "#answer-#{answers.first.id}" do
+          click_on 'make best'
         end
 
-				within "#answer-#{answers.last.id}" do
-					click_on 'make best'
-					expect(page).to have_content 'Best answer'
+        within "#answer-#{answers.last.id}" do
+          click_on 'make best'
+          expect(page).to have_content 'Best answer'
         end
 
-				within "#answer-#{answers.first.id}" do
-					expect(page).to_not have_content 'Best answer'
-				end
+        within "#answer-#{answers.first.id}" do
+          expect(page).to_not have_content 'Best answer'
+        end
       end
-		end
+    end
   end
 
   scenario 'other user try to chose best answer' do

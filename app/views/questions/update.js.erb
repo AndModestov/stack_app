@@ -3,9 +3,3 @@
 <% else %>
   <%= render 'question_errors' %>
 <% end %>
-
-$('.edit-question-link').click(function(e){
-  e.preventDefault();
-  $(this).hide();
-  $('form#edit-question').show();
-});

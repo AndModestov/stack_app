@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy, :make_best]
-  before_action :find_question, only: [:create, :update, :destroy, :make_best]
+  before_action :find_question, only: [:create]
   before_action :find_answer, only: [:destroy, :update, :make_best]
 
   def create
@@ -26,9 +26,9 @@ class AnswersController < ApplicationController
   end
 
   def make_best
-    if current_user.author_of?(@question)
+    if current_user.author_of?(@answer.question)
       @answer.best_answer!
-      redirect_to @question
+      redirect_to @answer.question
     else
       redirect_to new_user_session_path
     end
