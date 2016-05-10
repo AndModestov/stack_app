@@ -11,7 +11,5 @@ class Answer < ActiveRecord::Base
     end
   end
 
-  def self.best_first
-    where(best: true) + where(best: false).order('created_at')
-  end
+  scope :best_first, -> { order('best DESC', 'created_at') }
 end
