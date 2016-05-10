@@ -1,6 +1,6 @@
 .answer id= "answer-#{answer.id}"
 
-  p = answer.body
+  h4 = answer.body
 
   - if current_user && current_user.author_of?(answer)
     p = link_to 'Edit answer', '', class: 'edit-answer-link', data: { answer_id: answer.id }
@@ -16,9 +16,9 @@
     p = link_to 'Delete answer', answer_path(answer),
             method: 'delete', data: {confirm: "Sure?"}, remote: true
 
+  - if answer.best?
+    h4.pull-right = 'Best answer'
   - if current_user && current_user.author_of?(@answer.question)
     p = link_to 'make best', make_best_answer_path(answer), method: :post
 
-  - if answer.best?
-    h5 = 'Best answer'
 br

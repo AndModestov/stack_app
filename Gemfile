@@ -11,6 +11,7 @@ gem 'jbuilder'
 gem 'rubocop'
 gem 'slim-rails'
 gem 'devise'
+gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'sdoc', group: :doc
 
