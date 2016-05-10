@@ -4,14 +4,12 @@ class Answer < ActiveRecord::Base
 
   validates :body, :question_id, :user_id, presence: true
 
+  scope :best_first, -> { order('best DESC', 'created_at') }
+
   def best_answer!
     transaction do
       question.answers.where(best: true).update_all(best: false)
       self.update(best: true)
     end
-  end
-
-  def self.best_first
-    where(best: true) + where(best: false).order('created_at')
   end
 end

@@ -4,7 +4,7 @@ header.navbar.navbar-fixed-top.navbar-inverse
     nav
       ul.nav.nav-tabs.pull-right
         - if current_user
-          li = link_to "Questions", questions_path
+          li = link_to "Questions", questions_path, class: 'btn'
           li = link_to "New Question", new_question_path
 
           li#fat-menu.dropdown
@@ -16,4 +16,5 @@ header.navbar.navbar-fixed-top.navbar-inverse
               li.divider
               li = link_to "Sign out", destroy_user_session_path, method: "delete"
         - else
-          li = link_to "Sign In", new_user_session_path
+          li = link_to "Log In", new_user_session_path
+          li = link_to "Sign Up", new_user_registration_path

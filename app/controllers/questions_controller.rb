@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
     if current_user.author_of?(@question)
       @question.update(question_params)
     else
-      redirect_to new_user_session_path
+      redirect_to_question
     end
   end
 
@@ -39,11 +39,16 @@ class QuestionsController < ApplicationController
       redirect_to questions_path
       flash[:notice] = 'Question successfully deleted.'
     else
-      redirect_to new_user_session_path
+      redirect_to_question
     end
   end
 
   private
+
+  def redirect_to_question
+    redirect_to @question
+    flash[:notice] = "You don't have permission for this action."
+  end
 
   def find_question
     @question = Question.find(params[:id])

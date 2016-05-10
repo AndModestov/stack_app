@@ -65,7 +65,7 @@ describe AnswersController do
 
       it 'redirect to sign in path' do
         patch :update, id: wrong_answer, answer: { body: 'new body' }, format: :js
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to answer.question
       end
     end
   end
@@ -94,7 +94,7 @@ describe AnswersController do
 
       it 'redirect to sign in path' do
         delete :destroy, id: wrong_answer, format: :js
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to wrong_answer.question
       end
     end
   end

@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+ruby '2.3.0'
+gem 'rails', '4.2.6'
+
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier'
@@ -27,5 +29,3 @@ end
 group :test do
   gem 'shoulda-matchers'
 end
-
-ruby '2.3.0'

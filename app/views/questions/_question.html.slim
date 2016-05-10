@@ -13,7 +13,7 @@
         = f.label :body, 'Question body:'
         = f.text_area :body
         .question-errors
-      p = f.submit 'Save'
+      p = f.submit 'Save', class: 'btn btn-primary'
 
     p = link_to 'Delete question', question_path(question), method: 'delete', data: {confirm: "Sure?"}
 br

@@ -18,7 +18,7 @@ feature 'Chose best answer' do
         within "#answer-#{answers.first.id}" do
           click_on 'make best'
 
-          expect(page).to have_content 'Best answer'
+          expect(page).to have_content 'BEST ANSWER'
         end
       end
     end
@@ -31,11 +31,11 @@ feature 'Chose best answer' do
 
         within "#answer-#{answers.last.id}" do
           click_on 'make best'
-          expect(page).to have_content 'Best answer'
+          expect(page).to have_content 'BEST ANSWER'
         end
 
         within "#answer-#{answers.first.id}" do
-          expect(page).to_not have_content 'Best answer'
+          expect(page).to_not have_content 'BEST ANSWER'
         end
       end
     end

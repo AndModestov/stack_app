@@ -1,11 +1,11 @@
+h2 = "New question:"
 
-  h2 = "New question:"
-  = form_for @question do |f|
-    p
-      = f.label :title
-      = f.text_field :title
-    p
-      = f.label :body, 'Text'
-      = f.text_area :body
-    p
-      = f.submit 'Create', class: "btn btn-large btn-primary"
+= form_for @question do |f|
+  p
+    = f.label :title
+    = f.text_field :title
+  p
+    = f.label :body, 'Text'
+    = f.text_area :body
+  p
+    = f.submit 'Create', class: "btn btn-large btn-primary"

@@ -133,7 +133,7 @@ describe QuestionsController do
 
       it 'redirect to login view' do
         delete :destroy, id: wrong_question
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to wrong_question
       end
     end
   end

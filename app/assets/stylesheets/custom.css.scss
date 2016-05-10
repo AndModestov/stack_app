@@ -23,7 +23,7 @@
 
 .answer {
   width: 50%;
-  background-color: rgba(10, 10, 10, 0.5);
+  background-color: rgba(150, 150, 150, 0.6);
   padding: 15px;
   border-radius: 30px;
   A {
@@ -37,3 +37,16 @@
     color: #eee;
   }
 }
+
+
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #cacaca;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
