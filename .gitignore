@@ -19,3 +19,9 @@ doc/
 .DS_Store
 .idea
 .secret
+
+# Ignore uploaded files
+/public/system
+/public/tmp
+/public/uploads
+/public/spec

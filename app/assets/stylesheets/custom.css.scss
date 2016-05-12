@@ -23,12 +23,26 @@
 
 .answer {
   width: 50%;
-  background-color: rgba(150, 150, 150, 0.6);
+  background-color: rgba(150, 150, 150, 0.4);
   padding: 15px;
   border-radius: 30px;
-  A {
-    color: #ddddff;
+
+  A:hover {
+    color: #000;
+    text-decoration: none;
   }
+  A:active {
+    color: #eee;
+  }
+}
+
+.question {
+  background-color: rgba(150, 150, 150, 0.4);
+  padding: 15px;
+  border-radius: 10px;
+
+  .btn.pull_right
+
   A:hover {
     color: #000;
     text-decoration: none;

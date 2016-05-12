@@ -2,6 +2,10 @@
   .row
     .col-lg-8
       h4 = answer.body
+      ul
+        - answer.attachments.each do |a|
+          li = link_to a.file.filename, a.file.url
+
     .col-lg-4
       - if current_user && current_user.author_of?(answer)
         p = link_to 'Edit answer', '', class: 'edit-answer-link btn btn-primary',
@@ -21,6 +25,7 @@
       - if current_user && current_user.author_of?(answer.question) && !answer.best
         p = link_to 'make best', make_best_answer_path(answer), class: 'btn btn-primary',
                                                                 method: :post
+
       - if answer.best?
         h3.pull-right#logo = 'Best answer'
 

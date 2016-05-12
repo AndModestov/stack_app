@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'devise'
 gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'carrierwave'
+gem 'remotipart'
 
 gem 'sdoc', group: :doc
 

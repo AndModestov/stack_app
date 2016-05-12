@@ -30,6 +30,10 @@ describe QuestionsController do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
 
+    it 'builds new answers attachment' do
+      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
+    end
+
     it 'should render the show view' do
       expect(response).to render_template :show
     end
