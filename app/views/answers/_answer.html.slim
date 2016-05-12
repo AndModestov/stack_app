@@ -3,8 +3,7 @@
     .col-lg-8
       h4 = answer.body
       ul
-        - answer.attachments.each do |a|
-          li = link_to a.file.filename, a.file.url
+        = render answer.attachments
 
     .col-lg-4
       - if current_user && current_user.author_of?(answer)

@@ -10,10 +10,7 @@ h3 = 'Answers:'
       = f.label :body, 'Your answer:'
       .answer-errors
       = f.text_area :body
-    h4 Attachments:
-    p
-      = f.fields_for :attachments do |a|
-        = a.label :file
-        = a.file_field :file
+
+    = render 'attachments/attachment_form', f: f
 
     p = f.submit 'Answer', class: 'btn btn-primary'

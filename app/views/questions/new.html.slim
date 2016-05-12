@@ -7,11 +7,8 @@ h2 = "New question:"
   p
     = f.label :body, 'Text'
     = f.text_area :body
-  h3 Attachments:
-  p
-    = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file
+
+  = render 'attachments/attachment_form', f: f
 
   p
     = f.submit 'Create', class: "btn btn-large btn-primary"
