@@ -7,6 +7,7 @@ ready = ->
     e.preventDefault();
     $(this).hide();
     $('form#edit-question').show();
+    $('.q_attachment').show();
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

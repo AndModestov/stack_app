@@ -11,6 +11,7 @@ h3 = 'Answers:'
       .answer-errors
       = f.text_area :body
 
-    = render 'attachments/attachment_form', f: f
+    h4 Attachments:
+    = render 'attachments/attachment_fields', f: f
 
     p = f.submit 'Answer', class: 'btn btn-primary'
