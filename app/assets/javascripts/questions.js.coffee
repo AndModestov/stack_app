@@ -6,8 +6,7 @@ ready = ->
   $('.edit-question-link').click (e) ->
     e.preventDefault();
     $(this).hide();
-    $('form#edit-question').show();
-    $('.q_attachment').show();
+    $('form.edit_question').show();
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

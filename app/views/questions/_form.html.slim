@@ -1,0 +1,12 @@
+= form_for @question, remote: true do |f|
+  p
+    = f.label :title, 'Question title:'
+    = f.text_field :title
+  p
+    = f.label :body, 'Question body:'
+    = f.text_area :body
+    .question-errors
+
+  = render 'attachments/form', f: f
+
+  p = f.submit 'Save', class: 'btn btn-primary'

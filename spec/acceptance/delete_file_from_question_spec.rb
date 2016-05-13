@@ -11,13 +11,14 @@ feature 'Delete attachment' do
   end
 
   scenario 'delete questions attached file', js: true do
-    click_on 'Edit question'
+    within '.question' do
+      expect(page).to have_link 'spec_helper.rb'
 
-     within '.question' do
-       click_on 'delete'
+      click_on 'Edit question'
+      click_on 'remove file'
+      click_on 'Save'
 
-       expect(page).to_not have_link 'spec_helper.rb'
-       expect(page).to have_content 'file deleted'
-     end
+      expect(page).to_not have_link 'spec_helper.rb'
+    end
   end
 end

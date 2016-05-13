@@ -18,6 +18,8 @@
               = f.text_area :body
             p = f.submit 'Save', class: 'btn btn-primary'
 
+            = render 'attachments/form', f: f
+
         p = link_to 'Delete answer', answer_path(answer), class: 'btn btn-primary',
                                         method: 'delete', data: {confirm: "Sure?"}, remote: true
 

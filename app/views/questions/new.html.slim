@@ -8,9 +8,7 @@ h2 = "New question:"
     = f.label :body, 'Text'
     = f.text_area :body
 
-  = render 'attachments/attachment_fields', f: f
-  .add-file
-    = link_to_add_association 'add file', f, :attachments,
-            partial: 'attachments/attachment_fields'
+  = render 'attachments/form', f: f
+
   br
-  p = f.submit 'Create', class: "btn btn-large btn-primary"
+  p = f.submit 'Create', class: 'btn btn-large btn-primary'
