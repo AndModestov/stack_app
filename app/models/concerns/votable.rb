@@ -13,6 +13,10 @@ module Votable
     votes.create(user: user, value: -1) unless voted_by?(user)
   end
 
+  def delete_vote(user)
+    votes.where(user: user).destroy_all if voted_by?(user)
+  end
+
   def voted_by?(user)
     votes.where(user: user).present?
   end

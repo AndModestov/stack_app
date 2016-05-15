@@ -34,6 +34,18 @@ class AnswersController < ApplicationController
     end
   end
 
+  def vote_up
+
+  end
+
+  def vote_down
+
+  end
+
+  def delete_vote
+
+  end
+
   private
 
   def redirect_to_question
