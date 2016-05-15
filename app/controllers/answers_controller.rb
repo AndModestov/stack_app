@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create]
-  before_action :find_answer, only: [:destroy, :update, :make_best]
+  before_action :find_answer, only: [:destroy, :update, :make_best, :vote_up, :vote_down, :delete_vote]
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -35,15 +35,26 @@ class AnswersController < ApplicationController
   end
 
   def vote_up
-
+    if current_user.author_of?(@answer)
+      redirect_to @answer.question
+    else
+      @answer.vote_up(current_user)
+      redirect_to @answer.question
+    end
   end
 
   def vote_down
-
+    if current_user.author_of?(@answer)
+      redirect_to @answer.question
+    else
+      @answer.vote_down(current_user)
+      redirect_to @answer.question
+    end
   end
 
   def delete_vote
-
+    @answer.delete_vote(current_user)
+    redirect_to @answer.question
   end
 
   private

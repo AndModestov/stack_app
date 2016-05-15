@@ -4,6 +4,7 @@
       h4 = answer.body
       ul
         = render answer.attachments
+      = render 'answers/votes', answer: answer
 
     .col-lg-4
       - if current_user && current_user.author_of?(answer)
