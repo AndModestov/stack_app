@@ -44,4 +44,34 @@ RSpec.describe Answer, type: :model do
       expect(question.answers.best_first.first).to eq new_answer
     end
   end
+
+  describe 'Votes methods' do
+    let(:user){ create(:user) }
+    let(:question){ create(:question, user: user) }
+    let(:user2){ create(:user) }
+    let!(:answer){ create(:answer, question: question, user: user2) }
+
+    describe 'voted_by?' do
+      it 'should return true if answer is voted by user' do
+        answer.votes.create(user: user, value: 1)
+        expect(answer).to be_voted_by(user)
+      end
+
+      it 'should return false if answer is voted by user' do
+        expect(answer).to_not be_voted_by(user)
+      end
+    end
+
+    describe 'vote_up' do
+
+    end
+
+    describe 'vote_down' do
+
+    end
+
+    describe 'delete_vote' do
+
+    end
+  end
 end
