@@ -20,4 +20,12 @@ module Votable
   def voted_by?(user)
     votes.where(user: user).present?
   end
+
+  def total_score
+    score = 0
+    votes.each do |vote|
+      score += vote.value
+    end
+    score
+  end
 end
