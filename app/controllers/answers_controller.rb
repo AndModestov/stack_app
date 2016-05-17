@@ -1,7 +1,9 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create]
-  before_action :find_answer, only: [:destroy, :update, :make_best, :vote_up, :vote_down, :delete_vote]
+  before_action :find_answer, only: [:destroy, :update, :make_best]
+
+  include Voted
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -31,38 +33,6 @@ class AnswersController < ApplicationController
       redirect_to @answer.question
     else
       redirect_to_question
-    end
-  end
-
-  def vote_up
-    if current_user.author_of?(@answer)
-      redirect_to @answer.question
-    else
-      @answer.vote_up(current_user)
-
-      respond_to do |format|
-        format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: true} }
-      end
-    end
-  end
-
-  def vote_down
-    if current_user.author_of?(@answer)
-      redirect_to @answer.question
-    else
-      @answer.vote_down(current_user)
-
-      respond_to do |format|
-        format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: true} }
-      end
-    end
-  end
-
-  def delete_vote
-    @answer.delete_vote(current_user)
-
-    respond_to do |format|
-      format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: false} }
     end
   end
 

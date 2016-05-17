@@ -135,7 +135,7 @@ describe AnswersController do
     context 'vote_up for other users answer' do
       it 'assigns answer to @answer' do
         patch :vote_up, id: wrong_answer, format: :json
-        expect(assigns(:answer)).to eq wrong_answer
+        expect(assigns(:votable)).to eq wrong_answer
       end
 
       it 'votes up for answer' do
@@ -159,7 +159,7 @@ describe AnswersController do
     context 'vote_down for other users answer' do
       it 'assigns answer to @answer' do
         patch :vote_down, id: wrong_answer, format: :json
-        expect(assigns(:answer)).to eq wrong_answer
+        expect(assigns(:votable)).to eq wrong_answer
       end
 
       it 'votes down for answer' do
@@ -183,7 +183,7 @@ describe AnswersController do
     context 'deletes vote' do
       it 'assigns answer to @answer' do
         patch :delete_vote, id: wrong_answer, format: :json
-        expect(assigns(:answer)).to eq wrong_answer
+        expect(assigns(:votable)).to eq wrong_answer
       end
 
       it 'deletes existed vote for answer' do
