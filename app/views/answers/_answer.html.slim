@@ -1,7 +1,8 @@
 .answer id= "answer-#{answer.id}"
   .row
     .col-lg-8
-      h4 = answer.body
+      h4
+        b = answer.body
       ul
         = render answer.attachments
       = render 'answers/votes', answer: answer

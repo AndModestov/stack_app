@@ -39,7 +39,10 @@ class AnswersController < ApplicationController
       redirect_to @answer.question
     else
       @answer.vote_up(current_user)
-      redirect_to @answer.question
+
+      respond_to do |format|
+        format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: true} }
+      end
     end
   end
 
@@ -48,13 +51,19 @@ class AnswersController < ApplicationController
       redirect_to @answer.question
     else
       @answer.vote_down(current_user)
-      redirect_to @answer.question
+
+      respond_to do |format|
+        format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: true} }
+      end
     end
   end
 
   def delete_vote
     @answer.delete_vote(current_user)
-    redirect_to @answer.question
+
+    respond_to do |format|
+      format.json { render json: { answer_id: @answer.id, score: @answer.total_score, voted: false} }
+    end
   end
 
   private

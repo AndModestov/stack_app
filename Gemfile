@@ -17,6 +17,7 @@ gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap
 gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
+gem 'skim'
 
 gem 'sdoc', group: :doc
 

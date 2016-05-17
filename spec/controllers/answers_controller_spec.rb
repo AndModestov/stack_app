@@ -134,23 +134,23 @@ describe AnswersController do
   describe 'PATCH #vote_up' do
     context 'vote_up for other users answer' do
       it 'assigns answer to @answer' do
-        patch :vote_up, id: wrong_answer
+        patch :vote_up, id: wrong_answer, format: :json
         expect(assigns(:answer)).to eq wrong_answer
       end
 
       it 'votes up for answer' do
-        expect{ patch :vote_up, id: wrong_answer }.to change(wrong_answer.votes, :count).by(1)
+        expect{ patch :vote_up, id: wrong_answer, format: :json }.to change(wrong_answer.votes, :count).by(1)
       end
 
       it 'dont votes up twice' do
-        patch :vote_up, id: wrong_answer
-        expect{ patch :vote_up, id: wrong_answer }.to_not change(Vote, :count)
+        patch :vote_up, id: wrong_answer, format: :json
+        expect{ patch :vote_up, id: wrong_answer, format: :json }.to_not change(Vote, :count)
       end
     end
 
     context 'vote_up for own answer' do
       it 'dont votes up for answer' do
-        expect{ patch :vote_up, id: answer }.to_not change(Vote, :count)
+        expect{ patch :vote_up, id: answer, format: :json }.to_not change(Vote, :count)
       end
     end
   end
@@ -158,23 +158,23 @@ describe AnswersController do
   describe 'PATCH #vote_down' do
     context 'vote_down for other users answer' do
       it 'assigns answer to @answer' do
-        patch :vote_down, id: wrong_answer
+        patch :vote_down, id: wrong_answer, format: :json
         expect(assigns(:answer)).to eq wrong_answer
       end
 
       it 'votes down for answer' do
-        expect{ patch :vote_down, id: wrong_answer }.to change(wrong_answer.votes, :count).by(1)
+        expect{ patch :vote_down, id: wrong_answer, format: :json }.to change(wrong_answer.votes, :count).by(1)
       end
 
       it 'dont votes up twice' do
-        patch :vote_down, id: wrong_answer
-        expect{ patch :vote_down, id: wrong_answer }.to_not change(Vote, :count)
+        patch :vote_down, id: wrong_answer, format: :json
+        expect{ patch :vote_down, id: wrong_answer, format: :json }.to_not change(Vote, :count)
       end
     end
 
     context 'vote_down for own answer' do
       it 'dont votes up for answer' do
-        expect{ patch :vote_down, id: answer }.to_not change(Vote, :count)
+        expect{ patch :vote_down, id: answer, format: :json }.to_not change(Vote, :count)
       end
     end
   end
@@ -182,13 +182,13 @@ describe AnswersController do
   describe 'DELETE #delete_vote' do
     context 'deletes vote' do
       it 'assigns answer to @answer' do
-        patch :delete_vote, id: wrong_answer
+        patch :delete_vote, id: wrong_answer, format: :json
         expect(assigns(:answer)).to eq wrong_answer
       end
 
       it 'deletes existed vote for answer' do
-        patch :vote_up, id: wrong_answer
-        expect{ patch :delete_vote, id: wrong_answer }.to change(wrong_answer.votes, :count).by(-1)
+        patch :vote_up, id: wrong_answer, format: :json
+        expect{ patch :delete_vote, id: wrong_answer, format: :json }.to change(wrong_answer.votes, :count).by(-1)
       end
     end
   end
