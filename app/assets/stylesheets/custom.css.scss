@@ -23,22 +23,7 @@
 
 .answer {
   width: 50%;
-  background-color: rgba(150, 150, 150, 0.4);
-  padding: 15px;
-  border-radius: 30px;
-
-  A:hover {
-    color: #000;
-    text-decoration: none;
-  }
-  A:active {
-    color: #eee;
-  }
-}
-
-.question {
-  background-color: rgba(150, 150, 150, 0.4);
-  padding: 15px;
+  background-color: rgba(0, 127, 255, 0.4);
   border-radius: 10px;
 
   A:hover {
@@ -50,7 +35,19 @@
   }
 }
 
+.question {
+  background-color: rgba(0, 127, 255, 0.4);
+  padding: 15px;
+  border-radius: 10px;
 
+  A:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  A:active {
+    color: #eee;
+  }
+}
 
 /* forms */
 

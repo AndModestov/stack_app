@@ -10,7 +10,7 @@ module Voted
     @votable.vote_up(current_user)
 
     respond_to do |format|
-      format.json { render json: { answer_id: @votable.id, score: @votable.total_score, voted: true} }
+      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: true} }
     end
   end
 
@@ -18,7 +18,7 @@ module Voted
     @votable.vote_down(current_user)
 
     respond_to do |format|
-      format.json { render json: { answer_id: @votable.id, score: @votable.total_score, voted: true} }
+      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: true} }
     end
   end
 
@@ -26,7 +26,7 @@ module Voted
     @votable.delete_vote(current_user)
 
     respond_to do |format|
-      format.json { render json: { answer_id: @votable.id, score: @votable.total_score, voted: false} }
+      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: false} }
     end
   end
 
