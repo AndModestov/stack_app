@@ -131,6 +131,7 @@ describe AnswersController do
     end
   end
 
+
   describe 'PATCH #vote_up' do
     context 'vote_up for other users answer' do
       it 'assigns answer to @answer' do

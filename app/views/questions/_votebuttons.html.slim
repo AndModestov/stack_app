@@ -1,0 +1,20 @@
+.votebuttons
+  - if signed_in? && !current_user.author_of?(question)
+    .btn-group.btn-group-justified
+      .btn-group
+        = button_to '+', vote_up_question_path(question), id: "voteup-Question#{question.id}",
+                                                          disabled: voted_question,
+                                                          method: :post, class: "btn btn-default",
+                                                          remote: true, data: {type: :json}
+
+      .btn-group
+        = button_to '-', vote_down_question_path(question), id: "votedown-Question#{question.id}",
+                                                            disabled: voted_question,
+                                                            method: :post, class: "btn btn-default",
+                                                            remote: true, data: {type: :json}
+
+      .btn-group
+        = button_to 'cancel', delete_vote_question_path(question), id: "cancelvote-Question#{question.id}",
+                                                                   disabled: !voted_question,
+                                                                   method: :delete, class: "btn btn-default",
+                                                                   remote: true, data: { type: :json }

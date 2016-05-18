@@ -10,7 +10,8 @@ module Voted
     @votable.vote_up(current_user)
 
     respond_to do |format|
-      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: true} }
+      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
+                                  score: @votable.total_score, voted: true} }
     end
   end
 
@@ -18,7 +19,8 @@ module Voted
     @votable.vote_down(current_user)
 
     respond_to do |format|
-      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: true} }
+      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
+                                  score: @votable.total_score, voted: true} }
     end
   end
 
@@ -26,7 +28,8 @@ module Voted
     @votable.delete_vote(current_user)
 
     respond_to do |format|
-      format.json { render json: {answer_id: @votable.id, score: @votable.total_score, voted: false} }
+      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
+                                  score: @votable.total_score, voted: false} }
     end
   end
 
@@ -41,6 +44,12 @@ module Voted
   end
 
   def check_author
-    redirect_to @votable.question if current_user.author_of?(@votable)
+    if current_user.author_of?(@votable)
+      if @votable.class == Question
+        redirect_to @votable
+      else
+        redirect_to @votable.question
+      end
+    end
   end
 end

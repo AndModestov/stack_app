@@ -145,4 +145,67 @@ describe QuestionsController do
       end
     end
   end
+
+
+  describe 'PATCH #vote_up' do
+    context 'vote_up for other users question' do
+      it 'assigns question to @question' do
+        patch :vote_up, id: wrong_question, format: :json
+        expect(assigns(:votable)).to eq wrong_question
+      end
+
+      it 'votes up for question' do
+        expect{ patch :vote_up, id: wrong_question, format: :json }.to change(wrong_question.votes, :count).by(1)
+      end
+
+      it 'dont votes up twice' do
+        patch :vote_up, id: wrong_question, format: :json
+        expect{ patch :vote_up, id: wrong_question, format: :json }.to_not change(Vote, :count)
+      end
+    end
+
+    context 'vote_up for own question' do
+      it 'dont votes up for question' do
+        expect{ patch :vote_up, id: question, format: :json }.to_not change(Vote, :count)
+      end
+    end
+  end
+
+  describe 'PATCH #vote_down' do
+    context 'vote_down for other users question' do
+      it 'assigns question to @question' do
+        patch :vote_down, id: wrong_question, format: :json
+        expect(assigns(:votable)).to eq wrong_question
+      end
+
+      it 'votes down for question' do
+        expect{ patch :vote_down, id: wrong_question, format: :json }.to change(wrong_question.votes, :count).by(1)
+      end
+
+      it 'dont votes up twice' do
+        patch :vote_down, id: wrong_question, format: :json
+        expect{ patch :vote_down, id: wrong_question, format: :json }.to_not change(Vote, :count)
+      end
+    end
+
+    context 'vote_down for own question' do
+      it 'dont votes up for question' do
+        expect{ patch :vote_down, id: question, format: :json }.to_not change(Vote, :count)
+      end
+    end
+  end
+
+  describe 'DELETE #delete_vote' do
+    context 'deletes vote' do
+      it 'assigns question to @question' do
+        patch :delete_vote, id: wrong_question, format: :json
+        expect(assigns(:votable)).to eq wrong_question
+      end
+
+      it 'deletes existed vote for question' do
+        patch :vote_up, id: wrong_question, format: :json
+        expect{ patch :delete_vote, id: wrong_question, format: :json }.to change(wrong_question.votes, :count).by(-1)
+      end
+    end
+  end
 end

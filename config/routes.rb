@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions do
+  resources :questions, concerns: :votable do
     resources :answers, only: [:new, :create, :update, :destroy], concerns: :votable, shallow: true do
       member do
         post 'make_best'

@@ -1,6 +1,6 @@
 .votes
-  h4 id= "#{answer.id}"
+  h4 id= "Answer#{answer.id}"
     | Raiting:
     = answer.total_score
 
-  = render 'answers/votebuttons', answer: answer, voted: answer.voted_by?(current_user)
+  = render 'answers/votebuttons', answer: answer, voted_answer: answer.voted_by?(current_user)

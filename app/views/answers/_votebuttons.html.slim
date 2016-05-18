@@ -1,17 +1,20 @@
-.votebuttons id = "#{answer.id}"
+.votebuttons
   - if signed_in? && !current_user.author_of?(answer)
     .btn-group.btn-group-justified
       .btn-group
-        = button_to '+', vote_up_answer_path(answer), id: "voteup-#{answer.id}", disabled: voted,
-                                                    method: :post, class: "btn btn-default",
-                                                    remote: true, data: {type: :json}
-
-      .btn-group
-        = button_to '-', vote_down_answer_path(answer), id: "votedown-#{answer.id}", disabled: voted,
+        = button_to '+', vote_up_answer_path(answer), id: "voteup-Answer#{answer.id}",
+                                                      disabled: voted_answer,
                                                       method: :post, class: "btn btn-default",
                                                       remote: true, data: {type: :json}
 
       .btn-group
-        = button_to 'cancel', delete_vote_answer_path(answer), id: "cancelvote-#{answer.id}", disabled: !voted,
+        = button_to '-', vote_down_answer_path(answer), id: "votedown-Answer#{answer.id}",
+                                                        disabled: voted_answer,
+                                                        method: :post, class: "btn btn-default",
+                                                        remote: true, data: {type: :json}
+
+      .btn-group
+        = button_to 'cancel', delete_vote_answer_path(answer), id: "cancelvote-Answer#{answer.id}",
+                                                               disabled: !voted_answer,
                                                                method: :delete, class: "btn btn-default",
                                                                remote: true, data: { type: :json }
