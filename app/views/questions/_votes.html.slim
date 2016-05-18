@@ -3,4 +3,4 @@
     | Raiting:
     = question.total_score
 
-  = render 'questions/votebuttons', question: question, voted_question: question.voted_by?(current_user)
+  = render 'questions/votebuttons', question: question, voted: question.voted_by?(current_user)
