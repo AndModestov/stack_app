@@ -51,5 +51,4 @@ RSpec.describe Answer, type: :model do
     let(:user2){ create(:user) }
     let!(:votable){ create(:answer, question: question, user: user2) }
   end
-
 end
