@@ -18,6 +18,8 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
 gem 'skim'
+gem 'private_pub'
+gem 'thin'
 
 gem 'sdoc', group: :doc
 

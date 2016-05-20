@@ -4,6 +4,8 @@ h3 = 'Answers:'
 .answers
   = render @question.answers.best_first
 
+  = subscribe_to "/questions/#{@question.id}/answers"
+
 - if current_user
   = form_for [@question, @answer], remote: true do |f|
     p

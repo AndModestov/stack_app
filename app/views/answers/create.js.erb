@@ -1,5 +1,7 @@
 <% if @answer.errors.empty? %>
-  $('.answers').append('<%= j render @answer %>');
+  <% publish_to "/questions/#{@question.id}/answers" do %>
+    $('.answers').append('<%= j render @answer %>');
+  <% end %>
   $('textarea#answer_body').val('');
 <% else %>
   <%= render 'answer_errors' %>
