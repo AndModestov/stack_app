@@ -8,6 +8,10 @@ ready = ->
     $(this).hide();
     $('form.edit_question').show();
 
+  PrivatePub.subscribe "/questions", (data, channel) ->
+    question = $.parseJSON(data['question'])
+    $('.questions_list').append("<h1><a href=/questions/#{question.id}>" + question.title + '</a></h1>')
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)
