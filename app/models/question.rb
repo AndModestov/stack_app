@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
 
   include Attachable
   include Votable
+  include Commentable
 
   validates :title, presence: true, length: { maximum: 90 }
   validates :body, :user_id, presence: true

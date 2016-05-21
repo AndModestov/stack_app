@@ -14,6 +14,8 @@ RSpec.describe Answer, type: :model do
 
   it { should have_many(:votes) }
 
+  it { should have_many(:comments).dependent(:destroy) }
+
   describe 'best_answer! method' do
     let(:user){ create(:user) }
     let(:question){ create(:question, user: user) }

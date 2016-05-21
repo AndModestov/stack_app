@@ -12,6 +12,8 @@ RSpec.describe Question, type: :model do
 
   it { should accept_nested_attributes_for :attachments }
 
+  it { should have_many(:comments).dependent(:destroy) }
+
   it_behaves_like 'votable' do
     let(:user){ create(:user) }
     let(:user2){ create(:user) }
