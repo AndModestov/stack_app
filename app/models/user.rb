@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :answers
   has_many :votes
+  has_many :comments
 
 
   # Include default devise modules. Others available are:

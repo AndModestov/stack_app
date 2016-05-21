@@ -1,7 +1,15 @@
 = render @question
 
-h3 = 'Answers:'
+.question-comments
+  h3 Comments:
+  = render @question.comments.order('created_at')
+  = subscribe_to "/question/#{@question.id}/comments"
+.question-comment-form
+  = render 'comments/form', commentable: @question
+
+
 .answers
+  h3 Answers:
   = render @question.answers.best_first
 
   = subscribe_to "/questions/#{@question.id}/answers"

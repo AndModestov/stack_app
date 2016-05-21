@@ -1,21 +1,20 @@
-.question.row
-  .col-lg-8
-    h1 = question.title
-    h3 = question.body
-    br
+.question data={question_id: "#{question.id}"}
+  h1 = question.title
+  h3 = question.body
+  br
 
-    h4 Attachments:
-    ul
-      = render question.attachments
+  h4 Attachments:
+  ul
+    = render question.attachments
 
-    = render 'questions/votes', question: question
+  = render 'questions/votes', question: question
 
-  .col-lg-4
-    - if current_user && current_user.author_of?(question)
-      p = link_to 'Edit question', '', class: 'edit-question-link btn btn-primary'
+  - if current_user && current_user.author_of?(question)
+    .btn-group = link_to 'Edit question', '', class: 'edit-question-link btn btn-primary'
 
-      = render 'form'
+    = render 'form'
 
-      p = link_to 'Delete question', question_path(question), class: 'btn btn-primary',
-              method: 'delete', data: {confirm: "Sure?"}
+    .btn-group = link_to 'Delete question', question_path(question), class: 'btn btn-primary',
+          method: 'delete', data: {confirm: "Sure?"}
+
 br

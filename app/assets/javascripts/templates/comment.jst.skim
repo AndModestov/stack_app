@@ -1,0 +1,4 @@
+.comment.panel.panel-info
+  .panel-heading
+    .panel-title #{ @comment_author }
+  .panel-body #{ @comment }

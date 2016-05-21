@@ -1,0 +1,5 @@
+- if comment.persisted?
+  .comment.panel.panel-info
+    .panel-heading
+      .panel-title = comment.user.email
+    .panel-body = comment.body
