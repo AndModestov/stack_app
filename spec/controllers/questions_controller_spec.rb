@@ -34,8 +34,8 @@ describe QuestionsController do
       expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
     end
 
-    it 'builds new questions comment' do
-      expect(assigns(:question).comments.first).to be_a_new(Comment)
+    it 'builds new comment' do
+      expect(assigns(:comment)).to be_a_new(Comment)
     end
 
     it 'should render the show view' do

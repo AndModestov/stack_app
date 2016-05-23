@@ -1,4 +1,4 @@
-.question data={question_id: "#{question.id}"}
+.question
   h1 = question.title
   h3 = question.body
   br
@@ -16,5 +16,3 @@
 
     .btn-group = link_to 'Delete question', question_path(question), class: 'btn btn-primary',
           method: 'delete', data: {confirm: "Sure?"}
-
-br

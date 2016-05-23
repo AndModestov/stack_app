@@ -25,6 +25,8 @@
   width: 50%;
   background-color: rgba(0, 127, 255, 0.4);
   border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
 
   A:hover {
     color: #000;
@@ -35,10 +37,16 @@
   }
 }
 
+.comments {
+  width: 50%;
+  margin-left: 40px;
+}
+
 .question {
   background-color: rgba(0, 127, 255, 0.4);
   padding: 15px;
   border-radius: 10px;
+  margin-bottom: 5px;
 
   A:hover {
     color: #000;

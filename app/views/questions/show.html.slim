@@ -1,26 +1,45 @@
 = render @question
 
-.question-comments
-  h3 Comments:
-  = render @question.comments.order('created_at')
-  = subscribe_to "/question/#{@question.id}/comments"
-.question-comment-form
-  = render 'comments/form', commentable: @question
+button.btn.btn-default.collapsed data-target="#q_comm_show" data-toggle="collapse" type="button"
+  | comments
+  .glyphicon.glyphicon-chevron-down
+.collapse id="q_comm_show"
+
+  .comments
+    .question-comments id="#{@question.id}"
+      h3 Comments:
+      = render @question.comments.order('created_at')
+    .question-comment-form
+      = render 'comments/form', commentable: @question
 
 
 .answers
-  h3 Answers:
-  = render @question.answers.best_first
+  h2 Answers:
+  - @question.answers.best_first.each do |answer|
+    = render answer
 
-  = subscribe_to "/questions/#{@question.id}/answers"
+    button.btn.btn-default.collapsed data-target="#a_comm_show#{answer.id}" data-toggle="collapse" type="button"
+      | comments
+      .glyphicon.glyphicon-chevron-down
+    .collapse id="a_comm_show#{answer.id}"
 
+      .comments
+        .answer-comments id="#{answer.id}"
+          h4 Comments:
+          = render answer.comments.order('created_at')
+        .answer-comment-form
+          = render 'comments/form', commentable: answer
+
+= subscribe_to "/comments"
+
+br
 - if current_user
   = form_for [@question, @answer], remote: true do |f|
     p
       = f.label :body, 'Your answer:'
       .answer-errors
       = f.text_area :body
-
     = render 'attachments/form', f: f
-
     p = f.submit 'Answer', class: 'btn btn-primary'
+
+= subscribe_to "/questions/#{@question.id}/answers"
