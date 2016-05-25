@@ -39,7 +39,7 @@ br
       = f.label :body, 'Your answer:'
       .answer-errors
       = f.text_area :body
-    = render 'attachments/form', f: f
+    = render 'attachments/form', f: f, attached: @answer.attachments.build
     p = f.submit 'Answer', class: 'btn btn-primary'
 
 = subscribe_to "/questions/#{@question.id}/answers"

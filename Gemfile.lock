@@ -288,6 +288,7 @@ DEPENDENCIES
   private_pub
   rails (= 4.2.6)
   remotipart
+  responders
   rspec-rails
   rubocop
   sass-rails

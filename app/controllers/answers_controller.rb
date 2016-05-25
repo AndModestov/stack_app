@@ -2,8 +2,11 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create]
   before_action :find_answer, only: [:destroy, :update, :make_best]
+  before_action :check_author, only: [:update, :destroy]
 
   include Voted
+
+  respond_to :js, only: [:create, :update, :destroy]
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -12,19 +15,11 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(@answer)
-      @answer.update(answer_params)
-    else
-      redirect_to_question
-    end
+    respond_with(@answer.update(answer_params))
   end
 
   def destroy
-    if current_user.author_of?(@answer)
-      @answer.destroy
-    else
-      redirect_to_question
-    end
+    respond_with(@answer.destroy)
   end
 
   def make_best
@@ -37,6 +32,10 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def check_author
+    redirect_to_question unless current_user.author_of?(@answer)
+  end
 
   def redirect_to_question
     redirect_to @answer.question

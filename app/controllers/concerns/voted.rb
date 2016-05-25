@@ -3,34 +3,30 @@ module Voted
 
   included do
     before_action :find_votable, only: [:vote_up, :vote_down, :delete_vote]
-    before_action :check_author, only: [:vote_up, :vote_down]
+    before_action :check_votable_author, only: [:vote_up, :vote_down]
+
+    respond_to :json, only: [:vote_up, :vote_down, :delete_vote]
   end
 
   def vote_up
     @votable.vote_up(current_user)
 
-    respond_to do |format|
-      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
-                                  score: @votable.total_score, voted: true} }
-    end
+    render json: { model: model_klass.to_s, votable_id: @votable.id,
+                  score: @votable.total_score, voted: true }
   end
 
   def vote_down
     @votable.vote_down(current_user)
 
-    respond_to do |format|
-      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
-                                  score: @votable.total_score, voted: true} }
-    end
+    render json: { model: model_klass.to_s, votable_id: @votable.id,
+                  score: @votable.total_score, voted: true }
   end
 
   def delete_vote
     @votable.delete_vote(current_user)
 
-    respond_to do |format|
-      format.json { render json: {model: model_klass.to_s, votable_id: @votable.id,
-                                  score: @votable.total_score, voted: false} }
-    end
+    render json: { model: model_klass.to_s, votable_id: @votable.id,
+                  score: @votable.total_score, voted: false }
   end
 
   private
@@ -43,7 +39,7 @@ module Voted
     @votable = model_klass.find(params[:id])
   end
 
-  def check_author
+  def check_votable_author
     if current_user.author_of?(@votable)
       if @votable.class == Question
         redirect_to @votable

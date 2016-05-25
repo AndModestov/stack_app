@@ -8,7 +8,7 @@ h2 = "New question:"
     = f.label :body, 'Text'
     = f.text_area :body
 
-  = render 'attachments/form', f: f
+  = render 'attachments/form', f: f, attached: @question.attachments.new
 
   br
   p = f.submit 'Create', class: 'btn btn-large btn-primary'

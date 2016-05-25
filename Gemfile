@@ -20,6 +20,7 @@ gem 'cocoon'
 gem 'skim'
 gem 'private_pub'
 gem 'thin'
+gem 'responders'
 
 gem 'sdoc', group: :doc
 
