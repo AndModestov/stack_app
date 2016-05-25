@@ -6,7 +6,7 @@ button.btn.btn-default.collapsed data-target="#q_comm_show" data-toggle="collaps
 .collapse id="q_comm_show"
 
   .comments
-    .question-comments id="#{@question.id}"
+    .Question-comments id="#{@question.id}"
       h3 Comments:
       = render @question.comments.order('created_at')
     .question-comment-form
@@ -24,7 +24,7 @@ button.btn.btn-default.collapsed data-target="#q_comm_show" data-toggle="collaps
     .collapse id="a_comm_show#{answer.id}"
 
       .comments
-        .answer-comments id="#{answer.id}"
+        .Answer-comments id="#{answer.id}"
           h4 Comments:
           = render answer.comments.order('created_at')
         .answer-comment-form

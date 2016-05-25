@@ -1,26 +1,28 @@
 require 'rails_helper'
 
 feature 'Add comment' do
-  given!(:user){ create(:user) }
-  given!(:question){ create(:question, user: user) }
+  given(:user){ create(:user) }
+  given(:question){ create(:question, user: user) }
   given!(:answer){ create(:answer, question: question, user: user) }
 
   scenario 'Authenticated user comments answer', js: true do
     log_in(user)
     visit question_path(question)
+    visit question_path(question)
 
     within '.answers' do
       click_on 'comments'
-    end
 
-    within '.answer-comment-form' do
-      fill_in 'Your comment:', with: 'Answer comment'
-      click_on 'Comment'
-    end
+      within '.answer-comment-form' do
+        fill_in 'Your comment:', with: 'Answer comment'
+        save_and_open_page
+        click_on 'Comment'
+      end
 
-    within '.answer-comments' do
-      expect(page).to have_content user[:email]
-      expect(page).to have_content 'Answer comment'
+      within '.Answer-comments' do
+        expect(page).to have_content user[:email]
+        expect(page).to have_content 'Answer comment'
+      end
     end
   end
 

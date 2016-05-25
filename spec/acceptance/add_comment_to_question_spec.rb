@@ -4,7 +4,6 @@ feature 'Add comment' do
   given(:user){ create(:user) }
   given!(:question){ create(:question, user: user) }
 
-
   scenario 'Authenticated user comments question', js: true do
     log_in(user)
     visit question_path(question)

@@ -9,11 +9,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.js do
-          PrivatePub.publish_to "/comments",
-                                comment: @comment.body.to_json,
-                                comment_author: @comment.user.email.to_json,
-                                commentable_id: @commentable.id.to_json,
-                                commentable_type: commentable_name.to_json
+          PrivatePub.publish_to "/comments", comment: @comment.to_json,
+                                             comment_author: @comment.user.email.to_json
           render nothing: true
         end
       else
