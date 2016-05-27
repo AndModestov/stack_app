@@ -21,6 +21,9 @@ gem 'skim'
 gem 'private_pub'
 gem 'thin'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
 
 gem 'sdoc', group: :doc
 

@@ -15,7 +15,6 @@ feature 'Add comment' do
 
       within '.answer-comment-form' do
         fill_in 'Your comment:', with: 'Answer comment'
-        save_and_open_page
         click_on 'Comment'
       end
 
