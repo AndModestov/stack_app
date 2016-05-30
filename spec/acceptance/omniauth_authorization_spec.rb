@@ -9,7 +9,7 @@ feature 'Omniauth' do
       mock_auth_hash
       click_on 'Sign in with Facebook'
 
-      expect(page).to have_content 'Successfully authenticated from Facebook account.'
+      expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
 
     it 'add authorization to existing user' do
@@ -18,7 +18,7 @@ feature 'Omniauth' do
       mock_auth_hash(info: {email: user.email})
       click_on 'Sign in with Facebook'
 
-      expect(page).to have_content 'Successfully authenticated from Facebook account.'
+      expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
 
     it 'login user with existing authorization' do
@@ -27,7 +27,7 @@ feature 'Omniauth' do
       mock_auth_hash(info: {email: user.email})
       click_on 'Sign in with Facebook'
 
-      expect(page).to have_content 'Successfully authenticated from Facebook account.'
+      expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
 
     it 'handle authentication error' do
@@ -45,7 +45,7 @@ feature 'Omniauth' do
       mock_auth_hash(provider: 'vkontakte')
       click_on 'Sign in with Vkontakte'
 
-      expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
+      expect(page).to have_content 'Successfully authenticated from vkontakte account.'
     end
 
     it 'add authorization to existing user' do
@@ -54,7 +54,7 @@ feature 'Omniauth' do
       mock_auth_hash(provider: 'vkontakte', info: {email: user.email})
       click_on 'Sign in with Vkontakte'
 
-      expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
+      expect(page).to have_content 'Successfully authenticated from vkontakte account.'
     end
 
     it 'login user with existing authorization' do
@@ -63,7 +63,7 @@ feature 'Omniauth' do
       mock_auth_hash(provider: 'vkontakte', info: {email: user.email})
       click_on 'Sign in with Vkontakte'
 
-      expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
+      expect(page).to have_content 'Successfully authenticated from vkontakte account.'
     end
 
     it 'handle authentication error' do
@@ -84,7 +84,7 @@ feature 'Omniauth' do
       fill_in 'Email:', with: 'newuser@email.com'
       click_on 'Submit'
 
-      expect(page).to have_content 'Successfully authenticated from Twitter account.'
+      expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
 
     it 'add authorization to existing user' do
@@ -96,7 +96,7 @@ feature 'Omniauth' do
       fill_in 'Email:', with: user.email
       click_on 'Submit'
 
-      expect(page).to have_content 'Successfully authenticated from Twitter account.'
+      expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
 
     it 'login user with existing authorization' do
@@ -105,7 +105,7 @@ feature 'Omniauth' do
       mock_auth_hash(provider: 'twitter', info: nil)
       click_on 'Sign in with Twitter'
 
-      expect(page).to have_content 'Successfully authenticated from Twitter account.'
+      expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
 
     it 'handle authentication error' do
