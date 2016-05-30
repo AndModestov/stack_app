@@ -1,0 +1,6 @@
+h2 Please enter your email address to continue registration
+
+= form_for :user, url: authorizations_path, method: :post do |f|
+  = label_tag :email, 'Email:'
+  = email_field_tag :email, params[:email]
+  p = submit_tag 'Submit', class: 'btn btn-primary'

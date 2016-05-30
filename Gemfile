@@ -24,6 +24,7 @@ gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
 
 gem 'sdoc', group: :doc
 

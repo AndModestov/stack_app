@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :authorizations, only: [:new, :create]
 
   resources :questions, concerns: :votable do
     resources :comments, only: :create, defaults: {commentable: 'questions'}
