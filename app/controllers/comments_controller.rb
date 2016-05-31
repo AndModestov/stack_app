@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_commentable, only: [:create]
-  after_action :publish_comment, only: :create
 
   respond_to :js, :json
 
@@ -19,10 +18,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def publish_comment
-
-  end
 
   def model_klass
     commentable_name.classify.constantize
