@@ -104,6 +104,11 @@ describe QuestionsController do
         expect(wrong_question.title).to_not eq 'updated title'
         expect(wrong_question.body).to_not eq 'updated body'
       end
+
+      it 'redirect to index view' do
+        patch :update, id: wrong_question, question: { title: 'updated title', body: 'updated body' }, format: :js
+        expect(response).to redirect_to root_path
+      end
     end
   end
 
@@ -131,9 +136,9 @@ describe QuestionsController do
         }.to_not change(Question, :count)
       end
 
-      it 'redirect to login view' do
+      it 'redirect to root_path' do
         delete :destroy, id: wrong_question
-        expect(response).to redirect_to wrong_question
+        expect(response).to redirect_to root_path
       end
     end
   end
