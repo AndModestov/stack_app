@@ -63,9 +63,9 @@ describe AnswersController do
         expect(wrong_answer.body).to_not eq 'new body'
       end
 
-      it 'redirect to sign in path' do
+      it 'redirect to root path' do
         patch :update, id: wrong_answer, answer: { body: 'new body' }, format: :js
-        expect(response).to redirect_to answer.question
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -92,9 +92,9 @@ describe AnswersController do
         }.to_not change(Answer, :count)
       end
 
-      it 'redirect to sign in path' do
+      it 'redirect to root_path' do
         delete :destroy, id: wrong_answer, format: :js
-        expect(response).to redirect_to wrong_answer.question
+        expect(response).to redirect_to root_path
       end
     end
   end

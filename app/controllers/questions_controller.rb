@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
   before_action :find_question, only: [:show, :update, :destroy, :check_author]
-  before_action :check_author, only: [:update, :destroy]
   before_action :build_answer, only: :show
   after_action :publish_question, only: :create
+
+  authorize_resource
 
   include Voted
 
@@ -42,15 +43,6 @@ class QuestionsController < ApplicationController
 
   def build_answer
     @answer = @question.answers.new
-  end
-
-  def check_author
-    redirect_to_question unless current_user.author_of?(@question)
-  end
-
-  def redirect_to_question
-    redirect_to @question
-    flash[:notice] = "You don't have permission for this action."
   end
 
   def find_question
