@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_commentable, only: [:create]
 
+  authorize_resource
+  
   respond_to :js, :json
 
   def create

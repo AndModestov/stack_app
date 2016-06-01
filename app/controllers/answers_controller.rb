@@ -2,9 +2,10 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create]
   before_action :find_answer, only: [:destroy, :update, :make_best]
-  before_action :check_author, only: [:update, :destroy]
 
   include Voted
+
+  authorize_resource
 
   respond_to :js, only: [:create, :update, :destroy]
 
@@ -23,24 +24,11 @@ class AnswersController < ApplicationController
   end
 
   def make_best
-    if current_user.author_of?(@answer.question)
-      @answer.best_answer!
-      redirect_to @answer.question
-    else
-      redirect_to_question
-    end
+    @answer.best_answer!
+    redirect_to @answer.question
   end
 
   private
-
-  def check_author
-    redirect_to_question unless current_user.author_of?(@answer)
-  end
-
-  def redirect_to_question
-    redirect_to @answer.question
-    flash[:notice] = "You don't have permission for this action."
-  end
 
   def find_question
     @question = Question.find(params[:question_id])
