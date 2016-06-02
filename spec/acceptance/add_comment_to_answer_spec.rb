@@ -8,7 +8,6 @@ feature 'Add comment' do
   scenario 'Authenticated user comments answer', js: true do
     log_in(user)
     visit question_path(question)
-    visit question_path(question)
 
     within '.answers' do
       click_on 'comments'
