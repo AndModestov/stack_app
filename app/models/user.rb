@@ -27,16 +27,18 @@ class User < ActiveRecord::Base
     end
 
     if user
-      user.create_auth(auth)
+      user.create_auth(auth, false)
+      ConfirmOauth.email_confirmation(user).deliver_now
     else
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password, password_confirmation: password)
-      user.create_auth(auth)
+      user.create_auth(auth, true)
     end
     user
   end
 
-  def create_auth(auth)
-    authorizations.create(provider: auth.provider, uid: auth.uid)
+  def create_auth(auth, conf)
+    token = Devise.friendly_token[0, 20]
+    authorizations.create(provider: auth.provider, uid: auth.uid, token: token, confirmed: conf)
   end
 end

@@ -37,8 +37,10 @@ group :test, :development do
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'letter_opener'
 end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara-email'
 end

@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'user haz no authorization' do
+    context 'user has no authorization' do
       context 'user exist' do
         let(:auth){ OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: {email: user.email}) }
         it 'does not create new user' do
@@ -55,6 +55,11 @@ RSpec.describe User, type: :model do
 
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
+          expect(authorization.confirmed).to eq false
+        end
+
+        it 'sends confirmation email' do
+          #####
         end
 
         it 'should return user' do
@@ -88,6 +93,7 @@ RSpec.describe User, type: :model do
 
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
+          expect(authorization.confirmed).to eq true
         end
       end
     end
