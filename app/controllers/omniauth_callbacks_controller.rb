@@ -23,7 +23,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       auth = @user.authorizations.find_by(provider: provider)
       check_authorization(auth)
     else
-      session["devise.oauth_data"] = {provider: auth_hash.provider, uid: auth_hash.uid}
+      session["devise.oauth_data"] = { provider: auth_hash.provider, uid: auth_hash.uid }
       redirect_to new_authorization_path
     end
   end

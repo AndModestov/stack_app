@@ -12,27 +12,47 @@ RSpec.describe AuthorizationsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before do
-      session['devise.oauth_data'] = {provider: 'twitter', uid: '123456'}
-    end
-
-    context 'with existing user' do
-      let(:user){ create(:user) }
+    context 'creating a new user with confirmed auth' do
+      before do
+        post :create, { email: 'test@email.com' },
+                      { 'devise.oauth_data' => {'provider' => 'twitter', 'uid' => '123456'} }
+      end
 
       it 'assigns user to @user' do
-        post :create, email: user.email
+        expect(assigns(:user)).to be_a(User)
+      end
+
+      it 'assigns auth to @auth' do
+        expect(assigns(:auth)).to be_a(Authorization)
+      end
+
+      it 'redirects to root_path' do
+        expect(response).to redirect_to root_path
+      end
+
+      it { should be_user_signed_in }
+    end
+
+    context 'creating new authorization for existing user' do
+      let(:user){ create(:user) }
+      before do
+        post :create, { email: user.email },
+                      { 'devise.oauth_data' => {'provider' => 'twitter', 'uid' => '123456'} }
+      end
+
+      it 'assigns user to @user' do
         expect(assigns(:user)).to eq user
       end
 
-      it 'assigns authorization to @auth' do
-        post :create, email: user.email
-        expect(assigns(:auth)).to be_a(Auth)
+      it 'assigns auth to @auth' do
+        expect(assigns(:auth)).to eq user.authorizations.first
       end
-    end
 
-    it 'redirects to authorization page if user not present' do
-      post :create, email: nil
-      expect(response).to redirect_to new_user_registration_path
+      it 'redirects to root_path' do
+        expect(response).to redirect_to new_user_registration_path
+      end
+
+      it { should_not be_user_signed_in }
     end
   end
 
