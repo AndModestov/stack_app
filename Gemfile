@@ -26,6 +26,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'cancancan'
+gem 'doorkeeper'
 
 gem 'sdoc', group: :doc
 
@@ -43,4 +44,5 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara-email'
+  gem 'json_spec'
 end
