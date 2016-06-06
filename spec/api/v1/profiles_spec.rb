@@ -74,18 +74,15 @@ describe 'Profile API' do
 
       %w(id email created_at updated_at admin).each do |attr|
         it "contains #{attr}" do
-          all.each do |profile|
-            expect(response.body).to be_json_eql(profile.send(attr.to_sym).to_json)
-                                         .at_path("#{all.index(profile)}/#{attr}")
-          end
+          profile = all.first
+          expect(response.body).to be_json_eql(profile.send(attr.to_sym).to_json)
+                                       .at_path("0/#{attr}")
         end
       end
 
       %w(password encrypted_password).each do |attr|
         it "dont contains #{attr}" do
-          all.each do |profile|
-            expect(response.body).to_not have_json_path("#{all.index(profile)}/#{attr}")
-          end
+          expect(response.body).to_not have_json_path("0/#{attr}")
         end
       end
     end

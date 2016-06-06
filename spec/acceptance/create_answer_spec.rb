@@ -9,6 +9,7 @@ feature 'User can answer the question' do
     visit question_path(question)
     fill_in 'Your answer:', with: 'New test answer for question'
     click_on 'Answer'
+    sleep 2
 
     expect(current_path).to eq question_path(question)
     within '.answers' do
