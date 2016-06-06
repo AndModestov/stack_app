@@ -56,5 +56,8 @@ describe Ability do
     it { should_not be_able_to :vote_up, answer }
     it { should_not be_able_to :vote_down, answer }
     it { should_not be_able_to :delete_vote, answer }
+
+    it { should be_able_to :me, user }
+    it { should_not be_able_to :me, other_user }
   end
 end
