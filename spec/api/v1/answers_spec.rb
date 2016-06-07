@@ -97,4 +97,53 @@ describe 'Answer API' do
       end
     end
   end
+
+  describe 'POST #create' do
+    describe 'unauthorized' do
+      it 'returns 401 if there is no access_token' do
+        post "/api/v1/questions/#{question.id}/answers", format: :json, answer: attributes_for(:answer)
+        expect(response.status).to eq 401
+      end
+
+      it 'returns 401 if access_token is invalid' do
+        post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: '123456',
+                                                                        answer: attributes_for(:answer)
+        expect(response.status).to eq 401
+      end
+    end
+
+    describe 'authorized' do
+      context 'with valid answer data' do
+        let(:post_valid_answer) do
+          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
+                                                                          answer: attributes_for(:answer)
+        end
+
+        it 'returns 201 status' do
+          post_valid_answer
+          expect(response).to be_success
+        end
+
+        it 'creates new answer' do
+          expect{ post_valid_answer }.to change(question.answers, :count).by(1)
+        end
+      end
+
+      context 'with invalid_answer_data' do
+        let(:post_invalid_answer) do
+          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
+                                                                          answer: attributes_for(:invalid_answer)
+        end
+
+        it 'returns 422 status' do
+          post_invalid_answer
+          expect(response).to_not be_success
+        end
+
+        it 'does not create answer' do
+          expect{ post_invalid_answer }.to_not change(Answer, :count)
+        end
+      end
+    end
+  end
 end

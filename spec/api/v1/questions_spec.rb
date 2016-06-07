@@ -162,7 +162,7 @@ describe 'Question API' do
           expect(response).to_not be_success
         end
 
-        it 'creates question' do
+        it 'does not create question' do
           expect{ post_invalid_question }.to_not change(Question, :count)
         end
       end
