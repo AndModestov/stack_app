@@ -2,17 +2,7 @@ require 'rails_helper'
 
 describe 'Question API' do
   describe 'GET /index' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get '/api/v1/questions', format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get '/api/v1/questions', format: :json, access_token: '123456'
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       let(:access_token){ create(:access_token) }
@@ -53,20 +43,14 @@ describe 'Question API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get '/api/v1/questions', { format: :json }.merge(options)
+    end
   end
 
   describe 'GET /show' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get '/api/v1/questions/1', format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get '/api/v1/questions/1', format: :json, access_token: '123456'
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       let(:access_token){ create(:access_token) }
@@ -117,20 +101,14 @@ describe 'Question API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get '/api/v1/questions/1', { format: :json }.merge(options)
+    end
   end
 
   describe 'POST #create' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        post '/api/v1/questions', format: :json, question: attributes_for(:question)
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        post '/api/v1/questions', format: :json, access_token: '123456', question: attributes_for(:question)
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       let(:access_token){ create(:access_token) }
@@ -166,6 +144,10 @@ describe 'Question API' do
           expect{ post_invalid_question }.to_not change(Question, :count)
         end
       end
+    end
+
+    def do_request(options = {})
+      post '/api/v1/questions', { format: :json, question: attributes_for(:question) }.merge(options)
     end
   end
 end
