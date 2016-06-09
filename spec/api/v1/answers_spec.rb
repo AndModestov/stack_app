@@ -10,7 +10,7 @@ describe 'Answer API' do
 
     context 'authorized' do
       before do
-        get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status' do
@@ -41,7 +41,7 @@ describe 'Answer API' do
       let!(:attachment){ create(:attachment, attachable: answer) }
 
       before do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status' do
@@ -89,38 +89,8 @@ describe 'Answer API' do
   describe 'POST #create' do
     it_behaves_like "API Authenticable"
 
-    describe 'authorized' do
-      context 'with valid answer data' do
-        let(:post_valid_answer) do
-          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
-                                                                          answer: attributes_for(:answer)
-        end
-
-        it 'returns 201 status' do
-          post_valid_answer
-          expect(response).to be_success
-        end
-
-        it 'creates new answer' do
-          expect{ post_valid_answer }.to change(question.answers, :count).by(1)
-        end
-      end
-
-      context 'with invalid_answer_data' do
-        let(:post_invalid_answer) do
-          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
-                                                                          answer: attributes_for(:invalid_answer)
-        end
-
-        it 'returns 422 status' do
-          post_invalid_answer
-          expect(response).to_not be_success
-        end
-
-        it 'does not create answer' do
-          expect{ post_invalid_answer }.to_not change(Answer, :count)
-        end
-      end
+    it_behaves_like "API creatable" do
+      let(:object){ 'answer' }
     end
 
     def do_request(options = {})

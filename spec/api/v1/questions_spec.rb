@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 describe 'Question API' do
+  let(:access_token){ create(:access_token) }
+
   describe 'GET /index' do
     it_behaves_like "API Authenticable"
 
     context 'authorized' do
-      let(:access_token){ create(:access_token) }
       let!(:questions){ create_list(:question, 2) }
       let(:question){ questions.first }
       let!(:answer){ create(:answer, question: question) }
 
       before do
-        get '/api/v1/questions', format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status code' do
@@ -50,16 +51,15 @@ describe 'Question API' do
   end
 
   describe 'GET /show' do
+    let!(:question){ create(:question) }
+    let!(:comment){ create(:comment, commentable: question) }
+    let!(:attachment){ create(:attachment, attachable: question) }
+
     it_behaves_like "API Authenticable"
 
     context 'authorized' do
-      let(:access_token){ create(:access_token) }
-      let!(:question){ create(:question) }
-      let!(:comment){ create(:comment, commentable: question) }
-      let!(:attachment){ create(:attachment, attachable: question) }
-
       before do
-        get "/api/v1/questions/#{question.id}", format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status code' do
@@ -103,47 +103,15 @@ describe 'Question API' do
     end
 
     def do_request(options = {})
-      get '/api/v1/questions/1', { format: :json }.merge(options)
+      get "/api/v1/questions/#{question.id}", { format: :json }.merge(options)
     end
   end
 
   describe 'POST #create' do
     it_behaves_like "API Authenticable"
 
-    context 'authorized' do
-      let(:access_token){ create(:access_token) }
-
-      context 'with valid question data' do
-        let(:post_valid_question) do
-          post '/api/v1/questions', format: :json, access_token: access_token.token,
-                                                   question: attributes_for(:question)
-        end
-
-        it 'returns 201 status' do
-          post_valid_question
-          expect(response).to be_success
-        end
-
-        it 'creates question' do
-          expect{ post_valid_question }.to change(Question, :count).by(1)
-        end
-      end
-
-      context 'with invalid question data' do
-        let(:post_invalid_question) do
-          post '/api/v1/questions', format: :json, access_token: access_token.token,
-               question: attributes_for(:invalid_question)
-        end
-
-        it 'returns 422 status' do
-          post_invalid_question
-          expect(response).to_not be_success
-        end
-
-        it 'does not create question' do
-          expect{ post_invalid_question }.to_not change(Question, :count)
-        end
-      end
+    it_behaves_like "API creatable" do
+      let(:object){ 'question' }
     end
 
     def do_request(options = {})
