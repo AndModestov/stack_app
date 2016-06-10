@@ -95,4 +95,22 @@ RSpec.describe AuthorizationsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #resend_confirmation_email' do
+    let!(:user){ create(:user) }
+    let!(:authorization){ create(:authorization, user: user, token: '123456', confirmed: false) }
+
+    it 'sends confirmation email' do
+      message = double(ConfirmOauth.email_confirmation(user))
+      allow(ConfirmOauth).to receive(:email_confirmation).with(user).and_return(message)
+      expect(message).to receive(:deliver_now)
+      get :resend_confirmation_email, {}, {'devise.user' => {'user_id' => user.id}}
+    end
+
+    it 'redirects to registration_path' do
+      get :resend_confirmation_email, {}, {'devise.user' => {'user_id' => user.id}}
+
+      expect(response).to redirect_to new_user_registration_path
+    end
+  end
 end

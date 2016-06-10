@@ -1,7 +1,4 @@
-require 'rails_helper'
-
-shared_examples "votable" do
-
+shared_examples_for "votable" do
   describe 'voted_by?' do
     it 'should return true if votable is voted by user' do
       votable.votes.create(user: user, value: 1)

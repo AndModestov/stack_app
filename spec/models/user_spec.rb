@@ -59,7 +59,10 @@ RSpec.describe User, type: :model do
         end
 
         it 'sends confirmation email' do
-          #####
+          message = double(ConfirmOauth.email_confirmation(user))
+          allow(ConfirmOauth).to receive(:email_confirmation).with(user).and_return(message)
+          expect(message).to receive(:deliver_now)
+          User.find_for_oauth(auth)
         end
 
         it 'should return user' do

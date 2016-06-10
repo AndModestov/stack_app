@@ -20,6 +20,7 @@ shared_examples_for "Omniauthable" do
     it 'assigns user to @user' do
       expect(assigns(:user)).to be_a(User)
     end
+
     it { should be_user_signed_in }
   end
 
@@ -32,12 +33,15 @@ shared_examples_for "Omniauthable" do
     it 'assigns user to @user' do
       expect(assigns(:user)).to eq user
     end
+
     it 'redirects to sign_up path' do
       expect(response).to redirect_to new_user_registration_path
     end
+
     it 'builds user data for resending confirmation' do
       expect(session['devise.user'][:user_id]).to eq user.id
     end
+
     it { should_not be_user_signed_in }
   end
 
@@ -50,6 +54,7 @@ shared_examples_for "Omniauthable" do
     it 'assigns user to @user' do
       expect(assigns(:user)).to eq user
     end
+
     it { should be_user_signed_in }
   end
 
@@ -62,9 +67,15 @@ shared_examples_for "Omniauthable" do
     it 'assigns user to @user' do
       expect(assigns(:user)).to eq user
     end
+
     it 'redirects to sign_up path' do
       expect(response).to redirect_to new_user_registration_path
     end
+
+    it 'builds user data for resending confirmation' do
+      expect(session['devise.user'][:user_id]).to eq user.id
+    end
+
     it { should_not be_user_signed_in }
   end
 

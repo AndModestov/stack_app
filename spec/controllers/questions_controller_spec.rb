@@ -60,6 +60,11 @@ describe QuestionsController do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to assigns(:question)
       end
+
+      it 'publish question to /questions' do
+        expect(PrivatePub).to receive(:publish_to).with("/questions", anything)
+        post :create, question: attributes_for(:question)
+      end
     end
 
     context 'with invalid information' do
@@ -72,6 +77,11 @@ describe QuestionsController do
       it 're-renders new view' do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template :new
+      end
+
+      it 'does not publish question to /questions' do
+        expect(PrivatePub).to_not receive(:publish_to).with("/questions", anything)
+        post :create, question: attributes_for(:invalid_question)
       end
     end
   end

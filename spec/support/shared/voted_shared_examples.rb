@@ -1,7 +1,4 @@
-require 'rails_helper'
-
-shared_examples "voted" do
-
+shared_examples_for "voted" do
   describe 'PATCH #vote_up' do
     context 'vote_up for other users votable' do
       it 'assigns votable to @votable' do

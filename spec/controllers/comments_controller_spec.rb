@@ -34,6 +34,11 @@ RSpec.describe CommentsController, type: :controller do
         }.to change(answer.comments, :count).by(1) && change(@user.comments, :count).by(1)
       end
 
+      it 'publish comment to /comments' do
+        expect(PrivatePub).to receive(:publish_to).with("/comments", anything)
+        post :create, commentable: 'answers', answer_id: answer,
+             comment: attributes_for(:comment), format: :js
+      end
     end
 
     context 'with invalid information' do
@@ -42,6 +47,12 @@ RSpec.describe CommentsController, type: :controller do
           post :create, commentable: 'questions', question_id: question,
                                                   comment: attributes_for(:invalid_comment), format: :json
         }.to_not change(Comment, :count)
+      end
+
+      it 'does not publish comment to /comments' do
+        expect(PrivatePub).to_not receive(:publish_to).with("/comments", anything)
+        post :create, commentable: 'questions', question_id: question,
+              comment: attributes_for(:invalid_comment), format: :js
       end
     end
   end
