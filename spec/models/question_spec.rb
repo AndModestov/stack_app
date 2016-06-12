@@ -14,6 +14,9 @@ RSpec.describe Question, type: :model do
 
   it { should have_many(:comments).dependent(:destroy) }
 
+  it { should have_many(:subscriptions).dependent(:destroy) }
+  it { should have_many :sub_users }
+
   it_behaves_like 'votable' do
     let(:user){ create(:user) }
     let(:user2){ create(:user) }

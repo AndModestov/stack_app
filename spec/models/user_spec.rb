@@ -13,6 +13,9 @@ RSpec.describe User, type: :model do
 
   it { should have_many(:authorizations).dependent(:destroy) }
 
+  it { should have_many(:subscriptions).dependent(:destroy) }
+  it { should have_many :question_subs }
+
   describe 'author_of? method' do
     let(:user){ create(:user) }
     let(:question){ create(:question, user: user) }

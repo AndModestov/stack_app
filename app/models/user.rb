@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :comments
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, foreign_key: 'sub_user_id', dependent: :destroy
+  has_many :question_subs, through: :subscriptions
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable

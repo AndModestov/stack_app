@@ -1,6 +1,8 @@
 class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   belongs_to :user
+  has_many :subscriptions, foreign_key: 'question_sub_id', dependent: :destroy
+  has_many :sub_users, through: :subscriptions
 
   include Attachable
   include Votable
