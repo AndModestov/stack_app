@@ -43,4 +43,16 @@ class User < ActiveRecord::Base
     token = Devise.friendly_token[0, 20]
     authorizations.create(provider: auth.provider, uid: auth.uid, token: token, confirmed: conf)
   end
+
+  def subscribe!(question_id)
+    subscriptions.create!(question_sub_id: question_id) unless subscribed?(question_id)
+  end
+
+  def unsubscribe!(question_id)
+    subscriptions.find_by(question_sub_id: question_id).destroy! if subscribed?(question_id)
+  end
+
+  def subscribed?(question_id)
+    subscriptions.find_by(question_sub_id: question_id)
+  end
 end
