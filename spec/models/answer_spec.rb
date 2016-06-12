@@ -47,6 +47,17 @@ RSpec.describe Answer, type: :model do
     end
   end
 
+  describe 'notify user method' do
+    let(:user){ create(:user) }
+    let(:question){ create(:question, user: user) }
+
+    it 'calls background job' do
+      answer = Answer.new(body: 'answer body', question: question, user: user)
+      expect(NewAnswerNotificationJob).to receive(:perform_later).with(answer)
+      answer.save!
+    end
+  end
+
   it_behaves_like "votable" do
     let(:user){ create(:user) }
     let(:question){ create(:question, user: user) }

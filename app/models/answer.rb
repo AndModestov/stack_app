@@ -1,4 +1,6 @@
 class Answer < ActiveRecord::Base
+  after_create :notify_user
+
   belongs_to :question
   belongs_to :user
 
@@ -15,5 +17,11 @@ class Answer < ActiveRecord::Base
       question.answers.where(best: true).update_all(best: false)
       self.update(best: true)
     end
+  end
+
+  private
+
+  def notify_user
+    NewAnswerNotificationJob.perform_later(self)
   end
 end
