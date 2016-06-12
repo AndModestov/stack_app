@@ -103,7 +103,7 @@ RSpec.describe AuthorizationsController, type: :controller do
     it 'sends confirmation email' do
       message = double(ConfirmOauth.email_confirmation(user))
       allow(ConfirmOauth).to receive(:email_confirmation).with(user).and_return(message)
-      expect(message).to receive(:deliver_now)
+      expect(message).to receive(:deliver_later)
       get :resend_confirmation_email, {}, {'devise.user' => {'user_id' => user.id}}
     end
 

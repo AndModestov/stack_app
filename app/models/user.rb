@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
     if user
       user.create_auth(auth, false)
-      ConfirmOauth.email_confirmation(user).deliver_now
+      ConfirmOauth.email_confirmation(user).deliver_later
     else
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password, password_confirmation: password)

@@ -22,7 +22,7 @@ class AuthorizationsController < ApplicationController
 
   def resend_confirmation_email
     user = User.find(session["devise.user"]["user_id"])
-    ConfirmOauth.email_confirmation(user).deliver_now
+    ConfirmOauth.email_confirmation(user).deliver_later
     email_sent_message
   end
 

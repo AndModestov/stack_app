@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveJob::TestHelper
 
 feature 'Omniauth' do
   given(:user) { create(:user) }
@@ -16,7 +17,9 @@ feature 'Omniauth' do
       user
       visit new_user_registration_path
       mock_auth_hash(info: {email: user.email})
-      click_on 'Sign in with Facebook'
+      perform_enqueued_jobs do
+        click_on 'Sign in with Facebook'
+      end
 
       expect(page).to have_content 'Please confirm your authorization by email.'
 
@@ -66,7 +69,9 @@ feature 'Omniauth' do
       user
       visit new_user_registration_path
       mock_auth_hash(provider: 'vkontakte', info: {email: user.email})
-      click_on 'Sign in with Vkontakte'
+      perform_enqueued_jobs do
+        click_on 'Sign in with Vkontakte'
+      end
 
       expect(page).to have_content 'Please confirm your authorization by email.'
 
@@ -122,7 +127,9 @@ feature 'Omniauth' do
       click_on 'Sign in with Twitter'
 
       fill_in 'Email:', with: user.email
-      click_on 'Submit'
+      perform_enqueued_jobs do
+        click_on 'Submit'
+      end
 
       expect(page).to have_content 'Email sent. Please confirm your authorization.'
 
@@ -165,7 +172,9 @@ feature 'Omniauth' do
       visit new_user_registration_path
       mock_auth_hash(provider: 'twitter', info: nil)
       click_on 'Sign in with Twitter'
-      click_on 'Resend confirmation?'
+      perform_enqueued_jobs do
+        click_on 'Resend confirmation?'
+      end
 
       expect(page).to have_content 'Email sent. Please confirm your authorization.'
       open_email(user.email)
