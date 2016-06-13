@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  after_create :notify_user
+  after_create :notify_users
 
   belongs_to :question
   belongs_to :user
@@ -21,7 +21,7 @@ class Answer < ActiveRecord::Base
 
   private
 
-  def notify_user
+  def notify_users
     NewAnswerNotificationJob.perform_later(self)
   end
 end

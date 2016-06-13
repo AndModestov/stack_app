@@ -17,6 +17,16 @@ RSpec.describe Question, type: :model do
   it { should have_many(:subscriptions).dependent(:destroy) }
   it { should have_many :sub_users }
 
+  describe 'subscribe_to_question' do
+    let(:user){ create(:user) }
+
+    it 'subscribes user to question' do
+      question = Question.new(title: 'test-title', body: 'test-body', user: user)
+
+      expect{ question.save! }.to change(user.subscriptions, :count).by(1)
+    end
+  end
+
   it_behaves_like 'votable' do
     let(:user){ create(:user) }
     let(:user2){ create(:user) }

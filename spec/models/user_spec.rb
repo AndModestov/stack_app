@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
   describe 'subscription methods' do
     let(:user){ create(:user) }
     let(:user2){ create(:user) }
-    let(:question){ create(:question, user: user2) }
+    let!(:question){ create(:question, user: user2) }
 
     describe 'subscribe!' do
       it 'creates subscription to question' do
@@ -54,6 +54,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'dont do anything if subscription dont exist' do
+        question.subscriptions.delete_all
         expect{ user.unsubscribe!(question.id) }.to_not change(Subscription, :count)
       end
     end

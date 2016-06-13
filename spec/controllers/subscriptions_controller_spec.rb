@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
   sign_in_user
-  let(:question){ create(:question, user: @user) }
+  let(:other_user){ create(:user) }
+  let(:question){ create(:question, user: other_user) }
 
   describe 'POST #create' do
     it 'creates new subscription' do

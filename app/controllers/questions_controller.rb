@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :find_question, only: [:show, :update, :destroy, :check_author]
+  before_action :find_question, only: [:show, :update, :destroy]
   before_action :build_answer, only: :show
   after_action :publish_question, only: :create
 
