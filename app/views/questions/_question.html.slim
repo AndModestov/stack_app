@@ -16,3 +16,6 @@
 
     .btn-group = link_to 'Delete question', question_path(question), class: 'btn btn-primary',
           method: 'delete', data: {confirm: "Sure?"}
+
+  - if current_user
+    .btn-group = render 'subscriptions/button', question: question

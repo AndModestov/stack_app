@@ -33,5 +33,7 @@ class Ability
     can :vote_down, [Question, Answer] { |votable| votable.user_id != user.id }
     can :delete_vote, [Question, Answer] { |votable| votable.user_id != user.id }
     can :me, User, id: user.id
+    can :create, Subscription, sub_user_id: user.id
+    can :destroy, Subscription, sub_user_id: user.id
   end
 end
