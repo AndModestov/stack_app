@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  after_create :notify_users
+  after_commit :notify_users
 
   belongs_to :question
   belongs_to :user

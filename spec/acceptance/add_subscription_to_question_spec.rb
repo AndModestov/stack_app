@@ -33,9 +33,10 @@ feature 'Add subscription' do
       fill_in 'Your answer:', with: 'New test answer for question'
       perform_enqueued_jobs do
         click_on 'Answer'
+        sleep(1)
+        open_email(user.email)
+        expect(current_email).to have_content 'New test answer for question'
       end
-      open_email(user.email)
-      expect(current_email).to have_content 'New test answer for question'
     end
   end
 

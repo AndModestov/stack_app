@@ -54,7 +54,7 @@ RSpec.describe Answer, type: :model do
     it 'calls background job' do
       answer = Answer.new(body: 'answer body', question: question, user: user)
       expect(NewAnswerNotificationJob).to receive(:perform_later).with(answer)
-      answer.save!
+      answer.save && answer.committed!
     end
   end
 
