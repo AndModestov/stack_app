@@ -7,7 +7,7 @@
 /db/*.sqlite3-journal
 
 # Игнорирование всех логов и временных файлов.
-/log/*.log
+/log
 /tmp
 
 # Игнорирование прочих ненужных файлов.
@@ -25,3 +25,7 @@ doc/
 /public/tmp
 /public/uploads
 /public/spec
+
+dump.rdb
+config/*.sphinx.conf
+db/sphinx
