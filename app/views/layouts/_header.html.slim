@@ -1,6 +1,7 @@
 header.navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     = link_to "Stack App", root_path, id: "logo"
+    = render 'search/form'
     nav
       ul.nav.nav-pills.pull-right
         - if current_user

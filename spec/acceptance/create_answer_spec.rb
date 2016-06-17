@@ -19,7 +19,6 @@ feature 'User can answer the question' do
   scenario 'Authenticated user try to create invalid answer', js: true do
     log_in(user)
     visit question_path(question)
-
     click_on 'Answer'
 
     expect(page).to have_content "Body can't be blank"
@@ -28,6 +27,6 @@ feature 'User can answer the question' do
   scenario 'Non-Authenticated user try to answer the question' do
     visit question_path(question)
 
-    expect(page).to_not have_selector 'form'
+    expect(page).to_not have_selector 'form#new_answer'
   end
 end

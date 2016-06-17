@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search', to: 'search#index'
+
   require 'sidekiq/web'
   authenticate :user, lambda{ |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
