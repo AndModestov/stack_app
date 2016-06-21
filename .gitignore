@@ -12,6 +12,7 @@
 
 # Игнорирование прочих ненужных файлов.
 database.yml
+private_pub.yml
 doc/
 *.swp
 *~
