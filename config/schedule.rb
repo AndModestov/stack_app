@@ -18,7 +18,7 @@
  end
 
  every 30.minutes do
-   bundle exec rake "ts:index"
+   rake "ts:index"
  end
 
 # Learn more: http://github.com/javan/whenever
