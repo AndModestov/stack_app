@@ -17,8 +17,8 @@
    runner "DailyDigestJob.perform_later"
  end
 
- every 30.minutes do
-   rake "ts:index"
+ every 60.minutes do
+   rake "ts:rebuild"
  end
 
 # Learn more: http://github.com/javan/whenever
