@@ -8,13 +8,8 @@
 </head>
 <body>
   <%= render 'layouts/header' %>
-
   <div class="container">
-    <% flash.each do |key, value| %>
-        <div class="alert"><%= value %></div>
-        <div class="notice "><%= value %></div>
-    <% end %>
-    </br></br></br>
+    <%= bootstrap_flash %>
 
     <%= yield %>
   </div>
