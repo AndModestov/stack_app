@@ -1,8 +1,8 @@
-.questions_list
-  - @questions.each do |question|
-    h1 = link_to question.title, question_path(question)
+- cache collection_cache_key_for :question do
+  .questions_list
+    - @questions.each do |question|
+      h1 = link_to question.title, question_path(question)
+  br
+  = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
 
-  = subscribe_to "/questions"
-
-br
-= link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+= subscribe_to "/questions"

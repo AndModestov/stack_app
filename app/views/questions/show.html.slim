@@ -12,7 +12,6 @@ button.btn.btn-default.collapsed data-target="#q_comm_show" data-toggle="collaps
     .question-comment-form
       = render 'comments/form', commentable: @question
 
-
 .answers
   h2 Answers:
   - @question.answers.best_first.each do |answer|
@@ -30,7 +29,6 @@ button.btn.btn-default.collapsed data-target="#q_comm_show" data-toggle="collaps
         .answer-comment-form
           = render 'comments/form', commentable: answer
 
-= subscribe_to "/comments"
 
 br
 - if current_user
@@ -42,4 +40,5 @@ br
     = render 'attachments/form', f: f, attached: @answer.attachments.build
     p = f.submit 'Answer', class: 'btn btn-primary'
 
+= subscribe_to "/comments"
 = subscribe_to "/questions/#{@question.id}/answers"
