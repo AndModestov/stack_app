@@ -14,7 +14,7 @@ class Answer < ActiveRecord::Base
 
   def best_answer!
     transaction do
-      question.answers.where(best: true).update_all(best: false)
+      question.answers.where(best: true).update_all(best: false, updated_at: Time.now)
       self.update(best: true)
     end
   end
